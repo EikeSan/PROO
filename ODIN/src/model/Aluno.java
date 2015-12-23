@@ -9,6 +9,6 @@ package model;
  *
  * @author Eike
  */
-public class Aluno {
+public class Aluno extends Usuario{
     
 }
