@@ -19,6 +19,11 @@ public class ConexaoMySQL implements IConexao {
     public synchronized Connection getConexao(String tipoBanco, String endereco, String nomeBanco, String nomeUsuario, String senha) throws SQLException {
         try {
             if(conexao == null)
+                tipoBanco = "jdbc:mysql";
+                endereco = "localhost";
+                nomeBanco = "odin";
+                nomeUsuario = "root";
+                senha = "";
                 conexao = DriverManager.getConnection(tipoBanco + "://" + endereco + "/" + nomeBanco, nomeUsuario, senha);
                 return conexao;
         }catch (SQLException e) {
