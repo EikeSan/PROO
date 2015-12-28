@@ -18,30 +18,30 @@ import java.sql.Connection;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import odin.dao.ConexaoMySQL;
-import odin.dao.FuncoesDAO;
+import odin.dao.ProfessorDAO;
 import odin.dao.IConexao;
 
 /**
  *
  * @author eike.santiago
  */
-public class FuncoesDAOTest extends TestCase {
+public class ProfessorDAOTest extends TestCase {
     IConexao banco = new ConexaoMySQL();
     Connection conexao = null;
-    FuncoesDAO funcoesDAO;
+    ProfessorDAO professorDAO;
     
     @Override
     protected void setUp() throws Exception {
-        conexao = banco.getConexao("jdbc:mysql", "localhost", "poo", "root", "");
-        funcoesDAO = new FuncoesDAO(conexao);
+        conexao = banco.getConexao("jdbc:mysql", "localhost", "odin", "root", "");
+        professorDAO = new ProfessorDAO(conexao);
         super.setUp();
     }
-    
+  
     @Test
     public void testDeveriaInserirUsuario() throws Exception {    
         try{
             conexao.setAutoCommit(false);
-            funcoesDAO.inserir("test", "test");
+            professorDAO.inserirProfessor("test", "test","senha");
         }catch(SQLException e){
             assertFalse(e.getMessage(),true);
             throw new SQLException(e.getMessage());
@@ -54,9 +54,9 @@ public class FuncoesDAOTest extends TestCase {
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.execute("INSERT INTO LOGIN(usuario,senha) values('kenji','1234')");
+            stmt.execute("INSERT INTO professor(usuario,nome,senha) values('test','test','1234')");
             
-            funcoesDAO.alterar("kenji","4321");
+            professorDAO.alterar("test","4321");
         }catch(SQLException e){
             assertFalse(e.getMessage(),true);
             throw new SQLException(e.getMessage());
@@ -70,9 +70,9 @@ public class FuncoesDAOTest extends TestCase {
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.executeUpdate("INSERT INTO LOGIN(usuario,senha) values('kenji','1234')");
-            funcoesDAO.excluir("kenjis");
-            funcoesDAO.excluir("kenji");
+            stmt.executeUpdate("INSERT INTO professor(usuario,nome,senha) values('test','test','1234')");
+            professorDAO.excluir("kenjis");
+            professorDAO.excluir("test");
         }catch (SQLException e){
             assertFalse(e.getMessage(),true);
             throw new SQLException(e.getMessage());
@@ -85,9 +85,8 @@ public class FuncoesDAOTest extends TestCase {
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.executeUpdate("INSERT INTO LOGIN(usuario,senha) values('kenji','1234')");
-            funcoesDAO.excluir("kenjis");
-            assertEquals("kenji", funcoesDAO.consultar("kenji"));
+            stmt.executeUpdate("INSERT INTO professor(nome,usuario,senha) values('test','test','1234')");
+            assertEquals("test", professorDAO.consultar("test"));
         }catch(SQLException e){
             assertFalse(e.getMessage(),true);
             throw new SQLException(e.getMessage());

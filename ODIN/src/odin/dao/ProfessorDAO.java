@@ -16,16 +16,18 @@ import java.util.ArrayList;
  *
  * @author eike.santiago
  */
-public class FuncoesDAO {
+public class ProfessorDAO {
     Connection conexao;
-    FuncoesDAO(Connection conexao){
+    ProfessorDAO(Connection conexao){
         this.conexao = conexao;
     }
-    public void inserir(String nomeUsuario,String senhaUsuario) throws SQLException{
+    
+    
+    public void inserirProfessor(String nomeUsuario,String nomeLogin,String senhaUsuario) throws SQLException{
         Statement stmt;
         try{
             stmt = this.conexao.createStatement();
-            stmt.execute("INSERT into login(usuario,senha) values('"+nomeUsuario+"','"+senhaUsuario+"')");
+            stmt.execute("INSERT into professor(nome,usuario,senha) values('"+nomeUsuario+"','"+nomeLogin+"','"+senhaUsuario+"')");
         }catch (SQLException e){
             throw new SQLException("Erro ao inserir"+e.getMessage());
         }
@@ -34,7 +36,7 @@ public class FuncoesDAO {
         Statement stmt;
         try {
             stmt = this.conexao.createStatement();
-            stmt.executeUpdate("UPDATE LOGIN SET senha='"+novaSenha+"' WHERE usuario='"+nomeUsuario+"'");
+            stmt.executeUpdate("UPDATE professor SET senha='"+novaSenha+"' WHERE usuario='"+nomeUsuario+"'");
         } catch (SQLException e) {
             throw new SQLException("Erro ao alterar usuário -"+e.getMessage());
         }
@@ -44,7 +46,7 @@ public class FuncoesDAO {
         Statement stmt;
         try{
             stmt = this.conexao.createStatement();
-            stmt.executeUpdate("DELETE FROM login WHERE usuario='"+nomeUsuario+"'");
+            stmt.executeUpdate("DELETE FROM professor WHERE usuario='"+nomeUsuario+"'");
         }catch (SQLException e){
             throw  new SQLException("Erro ao excluir usuário -"+e.getMessage());
         }
@@ -54,7 +56,7 @@ public class FuncoesDAO {
         ResultSet rs;
         Statement stmt;
         try{
-            PreparedStatement pstm = this.conexao.prepareStatement("select usuario from login where usuario ='"+usuarioConsultado+"'");
+            PreparedStatement pstm = this.conexao.prepareStatement("select usuario from professor where usuario ='"+usuarioConsultado+"'");
             rs = pstm.executeQuery();
             String usuarioEncontrado = rs.getString(0);
             return usuarioEncontrado;
