@@ -62,19 +62,19 @@ public class FuncoesDAO {
             throw new SQLException("Erro ao conslutar usuario - "+e.getMessage());
         }
     }
-    public ArrayList<String> validarLogin(String usuarioConsultado) throws SQLException{
-       ResultSet rs;
-       ArrayList<String> usuarioSenha = new ArrayList<String>();
-       
-       try{
-           PreparedStatement pstm = this.conexao.prepareStatement("select usuario,senha from login where");
-           rs = pstm.executeQuery();
-           
-           while(rs.next()){
-               usuarioSenha.add(rs.getString(usuarioConsultado))
-           }
-       }catch(SQLException e){
-           throw new SQLException("Erro ao validar login - "+e.getMessage());
-       }
-    }
+//    public ArrayList<String> validarLogin(String usuarioConsultado) throws SQLException{
+//       ResultSet rs;
+//       ArrayList<String> usuarioSenha = new ArrayList<String>();
+//       
+//       try{
+//           PreparedStatement pstm = this.conexao.prepareStatement("select usuario,senha from login where");
+//           rs = pstm.executeQuery();
+//           
+//           while(rs.next()){
+//               usuarioSenha.add(rs.getString(usuarioConsultado))
+//           }
+//       }catch(SQLException e){
+//           throw new SQLException("Erro ao validar login - "+e.getMessage());
+//       }
+//    }
 }
