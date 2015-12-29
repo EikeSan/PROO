@@ -43,15 +43,9 @@ public class UsuarioDAO {
     }
     
     public void excluir(int cpfUsuario)throws SQLException{
-        ResultSet rs;
         Statement stmt;
         try{
-            PreparedStatement pstm = this.conexao.prepareStatement("select tipo_usuario from usuario where cpf ='"+cpfUsuario+"'");
-            rs = pstm.executeQuery();
-            boolean next = rs.next();
-            String usuarioEncontrado = rs.getString(1);
             stmt = this.conexao.createStatement();
-            stmt.executeUpdate("DELETE FROM "+usuarioEncontrado+" WHERE cpf='"+cpfUsuario+"'");
             stmt.executeUpdate("DELETE FROM usuario WHERE cpf='"+cpfUsuario+"'");
         }catch (SQLException e){
             throw  new SQLException("Erro ao excluir usuário -"+e.getMessage());
