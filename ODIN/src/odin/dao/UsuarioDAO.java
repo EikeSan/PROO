@@ -16,18 +16,18 @@ import java.util.ArrayList;
  *
  * @author eike.santiago
  */
-public class ProfessorDAO {
+public class UsuarioDAO {
     Connection conexao;
-    ProfessorDAO(Connection conexao){
+    UsuarioDAO(Connection conexao){
         this.conexao = conexao;
     }
     
     
-    public void inserirProfessor(String nomeUsuario,String nomeLogin,String senhaUsuario) throws SQLException{
+    public void inserirProfessor(int cpfUsuario,String nomeUsuario,String nomeLogin,String senhaUsuario,String tipoUsuario) throws SQLException{
         Statement stmt;
         try{
             stmt = this.conexao.createStatement();
-            stmt.execute("INSERT into professor(nome,usuario,senha) values('"+nomeUsuario+"','"+nomeLogin+"','"+senhaUsuario+"')");
+            stmt.execute("INSERT into usuario(cpf,nome,usuario,senha,tipo_usuario) values('"+cpfUsuario+"','"+nomeUsuario+"','"+nomeLogin+"','"+senhaUsuario+"','"+tipoUsuario+"')");
         }catch (SQLException e){
             throw new SQLException("Erro ao inserir"+e.getMessage());
         }
