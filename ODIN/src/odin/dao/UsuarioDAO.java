@@ -23,7 +23,7 @@ public class UsuarioDAO {
     }
     
     
-    public void inserirProfessor(int cpfUsuario,String nomeUsuario,String nomeLogin,String senhaUsuario,String tipoUsuario) throws SQLException{
+    public void inserir(int cpfUsuario,String nomeUsuario,String nomeLogin,String senhaUsuario,String tipoUsuario) throws SQLException{
         Statement stmt;
         try{
             stmt = this.conexao.createStatement();
@@ -36,17 +36,23 @@ public class UsuarioDAO {
         Statement stmt;
         try {
             stmt = this.conexao.createStatement();
-            stmt.executeUpdate("UPDATE professor SET senha='"+novaSenha+"' WHERE usuario='"+nomeUsuario+"'");
+            stmt.executeUpdate("UPDATE usuario SET senha='"+novaSenha+"' WHERE usuario='"+nomeUsuario+"'");
         } catch (SQLException e) {
             throw new SQLException("Erro ao alterar usuário -"+e.getMessage());
         }
     }
     
-    public void excluir(String nomeUsuario)throws SQLException{
+    public void excluir(int cpfUsuario)throws SQLException{
+        ResultSet rs;
         Statement stmt;
         try{
+            PreparedStatement pstm = this.conexao.prepareStatement("select tipo_usuario from usuario where cpf ='"+cpfUsuario+"'");
+            rs = pstm.executeQuery();
+            boolean next = rs.next();
+            String usuarioEncontrado = rs.getString(1);
             stmt = this.conexao.createStatement();
-            stmt.executeUpdate("DELETE FROM professor WHERE usuario='"+nomeUsuario+"'");
+            stmt.executeUpdate("DELETE FROM "+usuarioEncontrado+" WHERE cpf='"+cpfUsuario+"'");
+            stmt.executeUpdate("DELETE FROM usuario WHERE cpf='"+cpfUsuario+"'");
         }catch (SQLException e){
             throw  new SQLException("Erro ao excluir usuário -"+e.getMessage());
         }
@@ -56,27 +62,13 @@ public class UsuarioDAO {
         ResultSet rs;
         Statement stmt;
         try{
-            PreparedStatement pstm = this.conexao.prepareStatement("select usuario from professor where usuario ='"+usuarioConsultado+"'");
+            PreparedStatement pstm = this.conexao.prepareStatement("select usuario from usuario where usuario ='"+usuarioConsultado+"'");
             rs = pstm.executeQuery();
-            String usuarioEncontrado = rs.getString(0);
+            boolean next = rs.next();
+            String usuarioEncontrado = rs.getString(1);
             return usuarioEncontrado;
         }catch (SQLException e){
             throw new SQLException("Erro ao conslutar usuario - "+e.getMessage());
         }
     }
-//    public ArrayList<String> validarLogin(String usuarioConsultado) throws SQLException{
-//       ResultSet rs;
-//       ArrayList<String> usuarioSenha = new ArrayList<String>();
-//       
-//       try{
-//           PreparedStatement pstm = this.conexao.prepareStatement("select usuario,senha from login where");
-//           rs = pstm.executeQuery();
-//           
-//           while(rs.next()){
-//               usuarioSenha.add(rs.getString(usuarioConsultado))
-//           }
-//       }catch(SQLException e){
-//           throw new SQLException("Erro ao validar login - "+e.getMessage());
-//       }
-//    }
 }

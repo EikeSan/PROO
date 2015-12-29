@@ -19,7 +19,7 @@ public class OdinView {
         System.out.println("Senha: ");
         senha = in.nextLine();
         LoginDAO login = new LoginDAO(usuario, senha);
-        login.checarDados();
+        System.out.println(login.checarDados());
     }
     public static void main (String[] args) throws SQLException{
         OdinView odin = new OdinView();

@@ -5,7 +5,6 @@
  */
 package odin.dao;
 
-import java.sql.Connection;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,7 +39,7 @@ public class UsuarioDAOTest extends TestCase {
     public void testDeveriaInserirUsuario() throws Exception {    
         try{
             conexao.setAutoCommit(false);
-            usuarioDAO.inserirProfessor(123,"test", "test","senha","aluno");
+            usuarioDAO.inserir(1234,"test", "test","senha","aluno");
         }catch(SQLException e){
             assertFalse(e.getMessage(),true);
             throw new SQLException(e.getMessage());
@@ -53,8 +52,7 @@ public class UsuarioDAOTest extends TestCase {
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.execute("INSERT INTO usuario(usuario,nome,senha) values('test','test','1234')");
-            
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('111','test','test','1234','aluno')");
             usuarioDAO.alterar("test","4321");
         }catch(SQLException e){
             assertFalse(e.getMessage(),true);
@@ -69,9 +67,9 @@ public class UsuarioDAOTest extends TestCase {
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.executeUpdate("INSERT INTO usuario(usuario,nome,senha) values('test','test','1234')");
-            usuarioDAO.excluir("kenjis");
-            usuarioDAO.excluir("test");
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
+            //usuarioDAO.excluir("kenjis");
+            usuarioDAO.excluir(1111);
         }catch (SQLException e){
             assertFalse(e.getMessage(),true);
             throw new SQLException(e.getMessage());
@@ -84,7 +82,7 @@ public class UsuarioDAOTest extends TestCase {
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.executeUpdate("INSERT INTO usuario(nome,usuario,senha) values('test','test','1234')");
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
             assertEquals("test", usuarioDAO.consultar("test"));
         }catch(SQLException e){
             assertFalse(e.getMessage(),true);

@@ -31,15 +31,12 @@ public class LoginDAO {
         try{
             PreparedStatement pstm = conexaoMySQL().prepareStatement("select * from usuario where cast(usuario as binary) ='"+usuario+"' and cast(senha as binary) = '"+senha+"'");
             rs = pstm.executeQuery();
-            String nomeConsultado = "";
-            while(rs.next()){
-                nomeConsultado = rs.getString("nome");
-            }
+            boolean next = rs.next();
+            String nomeConsultado = rs.getString("nome");
             return nomeConsultado;
         }catch (SQLException e){
             throw new SQLDataException("Erro ao checar dados!: "+e.getMessage());
         }
-        
     }
     
 }
