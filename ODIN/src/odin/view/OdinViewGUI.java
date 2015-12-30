@@ -8,6 +8,7 @@ package odin.view;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import odin.bo.LoginBO;
 import odin.dao.LoginDAO;
 /**
  *
@@ -33,9 +34,9 @@ public class OdinViewGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         nomeUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        senhaUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        senhaUsuario = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,19 +51,19 @@ public class OdinViewGUI extends javax.swing.JFrame {
 
         jLabel2.setText("SENHA");
 
-        senhaUsuario.setName("senhaUsuario"); // NOI18N
-        senhaUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                senhaUsuarioActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Odin v1.0");
 
         jButton2.setText("Login");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        senhaUsuario.setToolTipText("");
+        senhaUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senhaUsuarioActionPerformed(evt);
             }
         });
 
@@ -77,6 +78,9 @@ public class OdinViewGUI extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(144, 144, 144))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
@@ -86,10 +90,7 @@ public class OdinViewGUI extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(46, 46, 46))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(144, 144, 144))))
+                        .addGap(46, 46, 46))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,18 +99,17 @@ public class OdinViewGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(senhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(40, 40, 40)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jLabel3))
         );
 
         nomeUsuario.getAccessibleContext().setAccessibleName("nomeUsuario");
-        senhaUsuario.getAccessibleContext().setAccessibleName("");
 
         setSize(new java.awt.Dimension(403, 339));
         setLocationRelativeTo(null);
@@ -119,26 +119,26 @@ public class OdinViewGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeUsuarioActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:      
+        LoginBO login = new LoginBO();
+       
+        try {
+            String valor = new String(senhaUsuario.getPassword());
+            login.validarLogin(nomeUsuario.getText(), valor);
+            dispose();
+        } catch (SQLException ex) {
+            MensagemGUI telaMensagem = new MensagemGUI();
+            telaMensagem.textExibido("Erro ao realizar login!");
+            telaMensagem.setVisible(true);
+            Logger.getLogger(OdinViewGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void senhaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_senhaUsuarioActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-//        nomeUsuario.getText();
-//        senhaUsuario.getText();
-        ErroGUI erroGUI = new ErroGUI();
-        AdminViewGUI tela = new AdminViewGUI();
-        LoginDAO login = new LoginDAO();
-        try {
-            login.checarDados(nomeUsuario.getText(), senhaUsuario.getText());
-            tela.setVisible(true);
-        } catch (SQLException ex) {
-            erroGUI.setVisible(true);
-            Logger.getLogger(OdinViewGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,6 +181,6 @@ public class OdinViewGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField nomeUsuario;
-    private javax.swing.JTextField senhaUsuario;
+    private javax.swing.JPasswordField senhaUsuario;
     // End of variables declaration//GEN-END:variables
 }

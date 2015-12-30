@@ -16,17 +16,19 @@ public class LoginDAO {
        return conexao;
     }
     
-    public String checarDados(String usuario,String senha) throws SQLException{
+    public boolean isDadosValidos(String usuario,String senha) throws SQLException{
         ResultSet rs;
         Statement stmt;
+        boolean isValido = false;
         try{
             PreparedStatement pstm = conexaoMySQL().prepareStatement("select * from usuario where cast(usuario as binary) ='"+usuario+"' and cast(senha as binary) = '"+senha+"'");
             rs = pstm.executeQuery();
             boolean next = rs.next();
-            String nomeConsultado = rs.getString("nome");
-            return nomeConsultado;
+            rs.getString("nome");
+            isValido = true;
+            return isValido;
         }catch (SQLException e){
-            throw new SQLDataException("Erro ao checar dados!: "+e.getMessage());
+            throw new SQLException("Erro ao checar dados!: "+e.getMessage());
         }
     }
     

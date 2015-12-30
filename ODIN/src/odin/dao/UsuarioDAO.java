@@ -21,7 +21,16 @@ public class UsuarioDAO {
     UsuarioDAO(Connection conexao){
         this.conexao = conexao;
     }
+
+    public UsuarioDAO() {
+    }
     
+public Connection conexaoMySQL() throws SQLException{
+       IConexao banco = new ConexaoMySQL();
+       this.conexao = null;
+       conexao = banco.getConexao("jdbc:mysql", "localhost", "odin", "root", "");
+       return this.conexao;
+    }    
     
     public void inserir(int cpfUsuario,String nomeUsuario,String nomeLogin,String senhaUsuario,String tipoUsuario) throws SQLException{
         Statement stmt;
@@ -63,6 +72,19 @@ public class UsuarioDAO {
             return usuarioEncontrado;
         }catch (SQLException e){
             throw new SQLException("Erro ao conslutar usuario - "+e.getMessage());
+        }
+    }
+    public String consultarTipoUsuario (String loginUsuario) throws SQLException{
+        ResultSet rs;
+        Statement stmt;
+        try {
+            PreparedStatement pstm = this.conexao.prepareStatement("Select tipo_usuario from usuario where usuario= '"+loginUsuario+"'");
+            rs = pstm.executeQuery();
+            boolean next = rs.next();
+            String tipoEncontrado = rs.getString(1);
+            return tipoEncontrado;
+        } catch (SQLException e) {
+            throw new SQLException("Erro ao conslutar o tipo de usuario - "+e.getMessage());
         }
     }
 }

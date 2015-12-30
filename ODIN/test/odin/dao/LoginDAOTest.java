@@ -39,7 +39,7 @@ public class LoginDAOTest extends TestCase {
             Statement stmt = conexao.createStatement();
             stmt.execute("INSERT INTO usuario(cpf,usuario,nome,senha,tipo_usuario) values('1234','test','test','1234','aluno')");
             LoginDAO login = new LoginDAO();
-            login.checarDados("test", "1234");
+            login.isDadosValidos("test", "1234");
         } catch (SQLException e) {
             assertFalse(e.getMessage(), true);
             throw new SQLException(e.getMessage());

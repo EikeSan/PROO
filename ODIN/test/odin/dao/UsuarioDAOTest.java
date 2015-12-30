@@ -91,4 +91,18 @@ public class UsuarioDAOTest extends TestCase {
             conexao.rollback();
         }
     }
+    @Test
+    public void testDeveriaRetornarTipoDoUsuarioCadastrado() throws Exception{
+        try{
+            conexao.setAutoCommit(false);
+            Statement stmt = conexao.createStatement();
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
+            assertEquals("aluno", usuarioDAO.consultarTipoUsuario("test"));
+        }catch(SQLException e){
+            assertFalse(e.getMessage(),true);
+            throw new SQLException(e.getMessage());
+        }finally{
+            conexao.rollback();
+        }
+    }
 }
