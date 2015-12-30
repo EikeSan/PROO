@@ -33,8 +33,16 @@ public class LoginBO {
      
      public void retornaTelaPeloTipoDeUsuario(String tipoUsuario){
          AdminViewGUI adminView = new AdminViewGUI();
-         if (tipoUsuario == "admin"){
-             adminView.setVisible(true);
+         switch(tipoUsuario){
+             case "admin":{
+                 adminView.setVisible(true);
+             } 
+             case "Aluno":{
+                 
+             }
+             case "Professor":{
+                 
+             }
          }
              
      }

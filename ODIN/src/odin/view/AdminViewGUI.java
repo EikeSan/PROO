@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import odin.bo.UsuarioBO;
 import odin.dao.*;
 
 /**
@@ -41,11 +42,11 @@ public class AdminViewGUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         login_usuario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        senha_usuario = new javax.swing.JTextField();
+        senha_usuario = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         nome_usuario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        senha_usuarioConfirmacao = new javax.swing.JTextField();
+        senha_usuarioConfirmacao = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         tipo_usuario = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
@@ -64,7 +65,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
-        jLabel3.setText("NOVO USUÁRIO: ");
+        jLabel3.setText("LOGIN USUÁRIO: ");
 
         login_usuario.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         login_usuario.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +151,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(senha_usuarioConfirmacao, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,9 +244,9 @@ public class AdminViewGUI extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(Painel, "Senhas diferentes!!","Inane error",JOptionPane.ERROR_MESSAGE);
             }
             
-            UsuarioDAO usuario = new UsuarioDAO();
+            UsuarioBO usuario = new UsuarioBO();
             try {
-                usuario.inserir(cpf_usuario.getText(),nome_usuario.getText(),login_usuario.getText(),senha_usuario.getText(),tipo_usuario.getSelectedItem().toString());
+                usuario.inserirUsuario(cpf_usuario.getText(),nome_usuario.getText(),login_usuario.getText(),senha_usuario.getText(),tipo_usuario.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(Painel, "USUÁRIO INSERIDO COM SUCESSO!!");
                 cpf_usuario.setText(null);
                 nome_usuario.setText(null);
