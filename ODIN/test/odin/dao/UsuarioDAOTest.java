@@ -31,7 +31,7 @@ public class UsuarioDAOTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         conexao = banco.getConexao("jdbc:mysql", "localhost", "odin", "root", "");
-        usuarioDAO = new UsuarioDAO(conexao);
+        usuarioDAO  = new UsuarioDAO(conexao);
         super.setUp();
     }
   
@@ -39,7 +39,7 @@ public class UsuarioDAOTest extends TestCase {
     public void testDeveriaInserirUsuario() throws Exception {    
         try{
             conexao.setAutoCommit(false);
-            usuarioDAO.inserir(1234,"test", "test","senha","aluno");
+            usuarioDAO.inserir("1234","test", "test","senha","aluno");
         }catch(SQLException e){
             assertFalse(e.getMessage(),true);
             throw new SQLException(e.getMessage());
@@ -52,7 +52,7 @@ public class UsuarioDAOTest extends TestCase {
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('111','test','test','1234','aluno')");
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
             usuarioDAO.alterar("test","4321");
         }catch(SQLException e){
             assertFalse(e.getMessage(),true);
@@ -68,7 +68,6 @@ public class UsuarioDAOTest extends TestCase {
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
             stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
-            //usuarioDAO.excluir("kenjis");
             usuarioDAO.excluir(1111);
         }catch (SQLException e){
             assertFalse(e.getMessage(),true);

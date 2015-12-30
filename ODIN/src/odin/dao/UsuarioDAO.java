@@ -18,21 +18,11 @@ import java.util.ArrayList;
  */
 public class UsuarioDAO {
     Connection conexao;
-    UsuarioDAO(Connection conexao){
+    public UsuarioDAO(Connection conexao){
         this.conexao = conexao;
-    }
-
-    public UsuarioDAO() {
-    }
+    }  
     
-public Connection conexaoMySQL() throws SQLException{
-       IConexao banco = new ConexaoMySQL();
-       this.conexao = null;
-       conexao = banco.getConexao("jdbc:mysql", "localhost", "odin", "root", "");
-       return this.conexao;
-    }    
-    
-    public void inserir(int cpfUsuario,String nomeUsuario,String nomeLogin,String senhaUsuario,String tipoUsuario) throws SQLException{
+    public void inserir(String cpfUsuario,String nomeUsuario,String nomeLogin,String senhaUsuario,String tipoUsuario) throws SQLException{
         Statement stmt;
         try{
             stmt = this.conexao.createStatement();
