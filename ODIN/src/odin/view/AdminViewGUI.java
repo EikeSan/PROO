@@ -5,6 +5,13 @@
  */
 package odin.view;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import odin.dao.*;
+
 /**
  *
  * @author eike.santiago
@@ -27,29 +34,235 @@ public class AdminViewGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        Painel = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        cpf_usuario = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        login_usuario = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        senha_usuario = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        nome_usuario = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        senha_usuarioConfirmacao = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        tipo_usuario = new javax.swing.JComboBox();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Logado como: Administrador");
 
-        jLabel1.setText("Odin v 1.0");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
+        jLabel2.setText("        CPF: ");
+
+        cpf_usuario.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        cpf_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpf_usuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
+        jLabel3.setText("NOVO USUÁRIO: ");
+
+        login_usuario.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        login_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                login_usuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
+        jLabel4.setText("      SENHA: ");
+
+        senha_usuario.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        senha_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senha_usuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
+        jLabel5.setText("       NOME:");
+
+        nome_usuario.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        nome_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nome_usuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
+        jLabel6.setText("Confirmar Senha:");
+
+        senha_usuarioConfirmacao.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        senha_usuarioConfirmacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senha_usuarioConfirmacaoActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jButton1.setText("CADASTRAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        tipo_usuario.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        tipo_usuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aluno", "Professor" }));
+        tipo_usuario.setSelectedIndex(-1);
+        tipo_usuario.setToolTipText("");
+        tipo_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipo_usuarioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tipo_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(senha_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nome_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(login_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cpf_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(senha_usuarioConfirmacao, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(135, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(cpf_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(nome_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(login_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(senha_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(senha_usuarioConfirmacao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipo_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        Painel.addTab("Inserir", jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 693, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 322, Short.MAX_VALUE)
+        );
+
+        Painel.addTab("Alterar/Excluir", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 350, Short.MAX_VALUE)
-                .addComponent(jLabel1))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Painel, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 286, Short.MAX_VALUE)
-                .addComponent(jLabel1))
+            .addComponent(Painel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cpf_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpf_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpf_usuarioActionPerformed
+
+    private void login_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_login_usuarioActionPerformed
+
+    private void senha_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senha_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senha_usuarioActionPerformed
+
+    private void nome_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nome_usuarioActionPerformed
+
+    private void senha_usuarioConfirmacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senha_usuarioConfirmacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senha_usuarioConfirmacaoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (cpf_usuario.getText().isEmpty() || nome_usuario.getText().isEmpty() || login_usuario.getText().isEmpty() || senha_usuario.getText().isEmpty() || senha_usuarioConfirmacao.getText().isEmpty() || tipo_usuario.getSelectedIndex() == -1 ){
+            JOptionPane.showMessageDialog(Painel, "Preencha todos os campos corretamente!!","Inane error",JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            if (!senha_usuario.getText().equals(senha_usuarioConfirmacao.getText())){
+                 JOptionPane.showMessageDialog(Painel, "Senhas diferentes!!","Inane error",JOptionPane.ERROR_MESSAGE);
+            }
+            
+            UsuarioDAO usuario = new UsuarioDAO();
+            try {
+                usuario.inserir(cpf_usuario.getText(),nome_usuario.getText(),login_usuario.getText(),senha_usuario.getText(),tipo_usuario.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(Painel, "USUÁRIO INSERIDO COM SUCESSO!!");
+                cpf_usuario.setText(null);
+                nome_usuario.setText(null);
+                login_usuario.setText(null);
+                senha_usuario.setText(null);
+                senha_usuarioConfirmacao.setText(null);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(Painel, "ERRO:  "+ex.getMessage());
+            }
+            
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tipo_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipo_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipo_usuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -87,6 +300,20 @@ public class AdminViewGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTabbedPane Painel;
+    private javax.swing.JTextField cpf_usuario;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField login_usuario;
+    private javax.swing.JTextField nome_usuario;
+    private javax.swing.JTextField senha_usuario;
+    private javax.swing.JTextField senha_usuarioConfirmacao;
+    private javax.swing.JComboBox tipo_usuario;
     // End of variables declaration//GEN-END:variables
 }

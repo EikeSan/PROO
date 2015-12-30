@@ -31,7 +31,7 @@ public class UsuarioDAOTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         conexao = banco.getConexao("jdbc:mysql", "localhost", "odin", "root", "");
-        usuarioDAO  = new UsuarioDAO(conexao);
+        usuarioDAO  = new UsuarioDAO();
         super.setUp();
     }
   

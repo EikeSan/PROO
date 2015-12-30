@@ -18,14 +18,19 @@ import java.util.ArrayList;
  */
 public class UsuarioDAO {
     Connection conexao;
-    public UsuarioDAO(Connection conexao){
-        this.conexao = conexao;
-    }  
+    public UsuarioDAO(){
+        
+    }
+    public Connection conexaoMySQL() throws SQLException{
+       IConexao banco = new ConexaoMySQL();
+       conexao = banco.getConexao("jdbc:mysql", "localhost", "odin", "root", "");
+       return this.conexao;
+    }    
     
     public void inserir(String cpfUsuario,String nomeUsuario,String nomeLogin,String senhaUsuario,String tipoUsuario) throws SQLException{
         Statement stmt;
         try{
-            stmt = this.conexao.createStatement();
+            stmt = conexaoMySQL().createStatement();
             stmt.execute("INSERT into usuario(cpf,nome,usuario,senha,tipo_usuario) values('"+cpfUsuario+"','"+nomeUsuario+"','"+nomeLogin+"','"+senhaUsuario+"','"+tipoUsuario+"')");
         }catch (SQLException e){
             throw new SQLException("Erro ao inserir"+e.getMessage());
@@ -34,7 +39,7 @@ public class UsuarioDAO {
     public void alterar(String nomeUsuario,String novaSenha) throws SQLException{
         Statement stmt;
         try {
-            stmt = this.conexao.createStatement();
+            stmt = conexaoMySQL().createStatement();
             stmt.executeUpdate("UPDATE usuario SET senha='"+novaSenha+"' WHERE usuario='"+nomeUsuario+"'");
         } catch (SQLException e) {
             throw new SQLException("Erro ao alterar usuário -"+e.getMessage());
@@ -44,7 +49,7 @@ public class UsuarioDAO {
     public void excluir(int cpfUsuario)throws SQLException{
         Statement stmt;
         try{
-            stmt = this.conexao.createStatement();
+            stmt = conexaoMySQL().createStatement();
             stmt.executeUpdate("DELETE FROM usuario WHERE cpf='"+cpfUsuario+"'");
         }catch (SQLException e){
             throw  new SQLException("Erro ao excluir usuário -"+e.getMessage());
@@ -55,7 +60,7 @@ public class UsuarioDAO {
         ResultSet rs;
         Statement stmt;
         try{
-            PreparedStatement pstm = this.conexao.prepareStatement("select usuario from usuario where usuario ='"+usuarioConsultado+"'");
+            PreparedStatement pstm = conexaoMySQL().prepareStatement("select usuario from usuario where usuario ='"+usuarioConsultado+"'");
             rs = pstm.executeQuery();
             boolean next = rs.next();
             String usuarioEncontrado = rs.getString(1);
@@ -68,7 +73,7 @@ public class UsuarioDAO {
         ResultSet rs;
         Statement stmt;
         try {
-            PreparedStatement pstm = this.conexao.prepareStatement("Select tipo_usuario from usuario where usuario= '"+loginUsuario+"'");
+            PreparedStatement pstm = conexaoMySQL().prepareStatement("Select tipo_usuario from usuario where usuario= '"+loginUsuario+"'");
             rs = pstm.executeQuery();
             boolean next = rs.next();
             String tipoEncontrado = rs.getString(1);

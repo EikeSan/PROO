@@ -21,7 +21,7 @@ public class LoginBO {
      public void validarLogin(String nomeUsuario, String senhaUsuario) throws SQLException{
          LoginDAO login = new LoginDAO();
          conexao = banco.getConexao("jdbc:mysql", "localhost", "odin", "root", "");
-         usuarioDAO  = new UsuarioDAO(conexao);
+         usuarioDAO  = new UsuarioDAO();
          MensagemGUI telaMensagem = new MensagemGUI();
          if(login.isDadosValidos(nomeUsuario, senhaUsuario) == true){
              telaMensagem.textExibido("Login realizado com sucesso!");
