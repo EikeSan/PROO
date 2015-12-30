@@ -33,14 +33,13 @@ public class LoginDAOTest extends TestCase {
     }
        
     @Test
-    public void DeveriaLogarSeDadosInformadosCorretamente() throws Exception {
+    public void testDeveriaLogarSeDadosInformadosCorretamente() throws Exception {
         try {
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
             stmt.execute("INSERT INTO usuario(cpf,usuario,nome,senha,tipo_usuario) values('1234','test','test','1234','aluno')");
-            LoginDAO login = new LoginDAO("test", "1234");
-            login.checarDados();
-           // assertEquals("test", login.checarDados());
+            LoginDAO login = new LoginDAO();
+            login.checarDados("test", "1234");
         } catch (SQLException e) {
             assertFalse(e.getMessage(), true);
             throw new SQLException(e.getMessage());

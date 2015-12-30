@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package odin.view;
+package odin.bo;
 
 /**
  *
- * @author eike.santiago
+ * @author Eike
  */
-public class AdminView {
+public class LoginBO {
+    
     
 }

@@ -8,15 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LoginDAO {
-    private String usuario,senha;
-
-    public LoginDAO(String usuario, String senha) {
-        this.usuario = usuario;
-        this.senha = senha;
-    }
-
-    public LoginDAO() {
-    }
     // Obs:  implementar método abaixo para ser utilizado por todas as classes.
     public Connection conexaoMySQL() throws SQLException{
        IConexao banco = new ConexaoMySQL();
@@ -25,7 +16,7 @@ public class LoginDAO {
        return conexao;
     }
     
-    public String checarDados() throws SQLException{
+    public String checarDados(String usuario,String senha) throws SQLException{
         ResultSet rs;
         Statement stmt;
         try{
