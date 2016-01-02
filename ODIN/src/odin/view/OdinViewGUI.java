@@ -5,16 +5,18 @@
  */
 package odin.view;
 
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import odin.bo.LoginBO;
-import odin.dao.LoginDAO;
 /**
  *
  * @author eike.santiago
  */
 public class OdinViewGUI extends javax.swing.JFrame {
+    private Component Painel;
     /**
      * Creates new form OdinViewGUI
      */
@@ -128,9 +130,9 @@ public class OdinViewGUI extends javax.swing.JFrame {
             login.validarLogin(nomeUsuario.getText(), valor);
             dispose();
         } catch (SQLException ex) {
-            MensagemGUI telaMensagem = new MensagemGUI();
-            telaMensagem.textExibido("Erro ao realizar login!");
-            telaMensagem.setVisible(true);
+            JOptionPane.showMessageDialog(Painel, "Erro ao realizar login");
+            senhaUsuario.setText(null);
+            nomeUsuario.setText(null);
             Logger.getLogger(OdinViewGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         

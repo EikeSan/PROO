@@ -10,35 +10,50 @@ package odin.model;
  * @author Eike
  */
 public class Usuario {
+
     private int codigoUsuario;
     private String nomeUsuario;
     private String loginUsuario;
     private String senhaUsuario;
-    
-    public void setNomeUsuario(String nomeUsuario){
+    private String cpfUsuario;
+
+    public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
     }
-    public void setCodigoUsuario(){
-        //Deve fazer um select com os usuarios cadastrados no banco e usuar como codigo o ultimo codigo +1
+
+    public void setCodigoUsuario(int codigoUsuario) {
         this.codigoUsuario = codigoUsuario;
     }
-    public void setLoginUsuario(String loginUsuario){
+
+    public void setLoginUsuario(String loginUsuario) {
         this.loginUsuario = loginUsuario;
     }
-    public void setSenhaUsuario(String senhaUsuario){
+
+    public void setSenhaUsuario(String senhaUsuario) {
         this.senhaUsuario = senhaUsuario;
     }
-    
-    public String getNomeUsuario(){
+
+    public void setCPFUsuario(String cpfUsuario) {
+        this.cpfUsuario = cpfUsuario;
+    }
+
+    public String getNomeUsuario() {
         return this.nomeUsuario;
     }
-    public int getCodigoUsuario(){
+
+    public int getCodigoUsuario() {
         return this.codigoUsuario;
     }
-    public String getLoginUsuario(){
+
+    public String getLoginUsuario() {
         return this.loginUsuario;
     }
-    public String getSenhaUsuario(){
+
+    public String getSenhaUsuario() {
         return this.senhaUsuario;
+    }
+
+    public String getCPFUsuario() {
+        return this.cpfUsuario;
     }
 }

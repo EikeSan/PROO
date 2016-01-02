@@ -9,6 +9,43 @@ package odin.model;
  *
  * @author Eike
  */
-public class Aluno extends Usuario{
-    
+public class Aluno extends Usuario {
+
+    private int faltas;
+    private double nota1;
+    private double nota2;
+    private double notaFinal;
+
+    public void setFaltas(int faltas) {
+        this.faltas = faltas;
+    }
+
+    public void setNota1(double nota1) {
+        this.nota1 = nota1;
+    }
+
+    public void setNota2(double nota2) {
+        this.nota2 = nota2;
+    }
+
+    public void setNotaFinal(double notaFinal) {
+        this.notaFinal = notaFinal;
+    }
+
+    public int getFaltas() {
+        return faltas;
+    }
+
+    public double getNota1() {
+        return nota1;
+    }
+
+    public double getNota2() {
+        return nota2;
+    }
+
+    public double getNotaFinal() {
+        return notaFinal;
+    }
+
 }

@@ -10,5 +10,33 @@ package odin.model;
  * @author Eike
  */
 public class Disciplina {
-    
+
+    private int codigo;
+    private String nomeDisciplina;
+    private int cargaHoraria;
+
+    public void setCargaHoraria(int cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setNomeDisciplina(String nomeDisciplina) {
+        this.nomeDisciplina = nomeDisciplina;
+    }
+
+    public int getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public String getNomeDisciplina() {
+        return nomeDisciplina;
+    }
+
 }
