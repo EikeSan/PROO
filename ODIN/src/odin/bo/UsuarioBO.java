@@ -16,9 +16,9 @@ import odin.model.*;
  * @author Eike
  */
 public class UsuarioBO {
-
+    private UsuarioDAO usuarioDAO;
     public void inserirUsuario(String cpf, String nomeUsuario, String loginUsuario, String senhaUsuario, String tipoUsuario) throws SQLException {
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO = new UsuarioDAO();
         try {
             usuarioDAO.inserir(cpf, nomeUsuario, loginUsuario, senhaUsuario, tipoUsuario);
         } catch (SQLException e) {
@@ -27,9 +27,21 @@ public class UsuarioBO {
     }
     
     public ArrayList<Usuario> consultarUsuario() throws SQLException{
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO = new UsuarioDAO();
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
         listaUsuarios = usuarioDAO.listarUsuarios();
         return listaUsuarios;
+    }
+    
+    public void excluirUsuario(String cpf) throws SQLException{
+        usuarioDAO = new UsuarioDAO();
+        usuarioDAO.excluir(cpf);
+    }
+    
+    public void alterarUsuario(String cpf, String nomeUsuario, String loginUsuario, String senhaUsuario) throws SQLException{
+        usuarioDAO = new UsuarioDAO();
+        usuarioDAO.alterar(cpf, nomeUsuario, loginUsuario, senhaUsuario);
+       
+
     }
 }

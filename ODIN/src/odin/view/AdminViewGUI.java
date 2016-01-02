@@ -5,7 +5,6 @@
  */
 package odin.view;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import odin.bo.*;
 import odin.dao.*;
-import odin.model.Usuario;
+import odin.model.*;
 
 /**
  *
@@ -57,6 +56,9 @@ public class AdminViewGUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        atualizarTabela = new javax.swing.JButton();
+        alterarUsuario = new javax.swing.JButton();
+        excluirUsuario = new javax.swing.JButton();
         jTabbedPane6 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -241,18 +243,55 @@ public class AdminViewGUI extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jScrollPane1);
 
+        atualizarTabela.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        atualizarTabela.setText("Atualizar");
+        atualizarTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarTabelaActionPerformed(evt);
+            }
+        });
+
+        alterarUsuario.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        alterarUsuario.setText("Alterar");
+        alterarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarUsuarioActionPerformed(evt);
+            }
+        });
+
+        excluirUsuario.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        excluirUsuario.setText("Excluir");
+        excluirUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(atualizarTabela)
+                .addGap(87, 87, 87)
+                .addComponent(alterarUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(excluirUsuario)
+                .addGap(178, 178, 178))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(atualizarTabela)
+                    .addComponent(alterarUsuario)
+                    .addComponent(excluirUsuario))
+                .addGap(84, 84, 84))
         );
 
         Painel.addTab("Alterar/Excluir", jPanel2);
@@ -352,17 +391,16 @@ public class AdminViewGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (cpf_usuario.getText().isEmpty() || nome_usuario.getText().isEmpty() || login_usuario.getText().isEmpty() || senha_usuario.getText().isEmpty() || senha_usuarioConfirmacao.getText().isEmpty() || tipo_usuario.getSelectedIndex() == -1 ){
-            JOptionPane.showMessageDialog(Painel, "Preencha todos os campos corretamente!!","Inane error",JOptionPane.ERROR_MESSAGE);
-        }
-        else {
-            if (!senha_usuario.getText().equals(senha_usuarioConfirmacao.getText())){
-                JOptionPane.showMessageDialog(Painel, "Senhas diferentes!!","Inane error",JOptionPane.ERROR_MESSAGE);
+        if (cpf_usuario.getText().isEmpty() || nome_usuario.getText().isEmpty() || login_usuario.getText().isEmpty() || senha_usuario.getText().isEmpty() || senha_usuarioConfirmacao.getText().isEmpty() || tipo_usuario.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(Painel, "Preencha todos os campos corretamente!!", "Inane error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (!senha_usuario.getText().equals(senha_usuarioConfirmacao.getText())) {
+                JOptionPane.showMessageDialog(Painel, "Senhas diferentes!!", "Inane error", JOptionPane.ERROR_MESSAGE);
             }
 
             UsuarioBO usuario = new UsuarioBO();
             try {
-                usuario.inserirUsuario(cpf_usuario.getText(),nome_usuario.getText(),login_usuario.getText(),senha_usuario.getText(),tipo_usuario.getSelectedItem().toString());
+                usuario.inserirUsuario(cpf_usuario.getText(), nome_usuario.getText(), login_usuario.getText(), senha_usuario.getText(), tipo_usuario.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(Painel, "USUÁRIO INSERIDO COM SUCESSO!!");
                 cpf_usuario.setText(null);
                 nome_usuario.setText(null);
@@ -370,7 +408,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                 senha_usuario.setText(null);
                 senha_usuarioConfirmacao.setText(null);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(Painel, "ERRO:  "+ex.getMessage());
+                JOptionPane.showMessageDialog(Painel, "ERRO:  " + ex.getMessage());
             }
 
         }
@@ -411,23 +449,60 @@ public class AdminViewGUI extends javax.swing.JFrame {
         try {
             cargaHorariaConvertida = Integer.parseInt(cargaHoraria.getText());
             try {
-                disciplina.cadastrarDisciplina(nomeDisciplina.getText(),cargaHorariaConvertida );
+                disciplina.cadastrarDisciplina(nomeDisciplina.getText(), cargaHorariaConvertida);
                 JOptionPane.showMessageDialog(Painel, "Disciplina cadastrada com sucesso");
                 nomeDisciplina.setText(null);
                 cargaHoraria.setText(null);
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(Painel, "ERRO: "+e.getMessage());
+                JOptionPane.showMessageDialog(Painel, "ERRO: " + e.getMessage());
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(Painel, "Digite apenas numeros em Carga Horaria");
         }
-        
-
-        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void PainelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PainelStateChanged
         // TODO add your handling code here:
+        gerarTabela();
+    }//GEN-LAST:event_PainelStateChanged
+
+    private void excluirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirUsuarioActionPerformed
+        // TODO add your handling code here:
+        UsuarioBO usuarioBO = new UsuarioBO();
+        int i = jTable1.getSelectedRow();
+        if (i < 0) {
+            JOptionPane.showMessageDialog(Painel, "Nenhuma linha selecionada!");
+        }
+        String excluirPorCPF = jTable1.getValueAt(i, 0).toString();
+        try {
+            usuarioBO.excluirUsuario(excluirPorCPF);
+            gerarTabela();
+            JOptionPane.showMessageDialog(Painel, "Usuario deletado com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(Painel, "Erro ao deletar usuario");
+            Logger.getLogger(AdminViewGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_excluirUsuarioActionPerformed
+
+    private void atualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarTabelaActionPerformed
+        // TODO add your handling code here:
+        gerarTabela();
+    }//GEN-LAST:event_atualizarTabelaActionPerformed
+
+    private void alterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarUsuarioActionPerformed
+        // TODO add your handling code here:
+       AlterarUsuarioGUI alterarGUI = new AlterarUsuarioGUI();
+       String[] campos = {"CPF", "Login", "Nome", "Senha"};
+       int i = jTable1.getSelectedRow();
+        if (i < 0) {
+            JOptionPane.showMessageDialog(Painel, "Nenhuma linha selecionada!");
+        }
+       Object[] dados = {jTable1.getValueAt(i, 0),jTable1.getValueAt(i, 1),jTable1.getValueAt(i, 2),jTable1.getValueAt(i, 3)};
+       alterarGUI.gerarTabela(campos, dados);
+       alterarGUI.setVisible(true);
+    }//GEN-LAST:event_alterarUsuarioActionPerformed
+
+    public void gerarTabela() {
         String[] nomesColunas = {"CPF", "Login", "Nome", "Senha", "Tipo de Usuario"};
         DefaultTableModel model = new DefaultTableModel(null, nomesColunas);
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
@@ -438,10 +513,10 @@ public class AdminViewGUI extends javax.swing.JFrame {
             Logger.getLogger(AdminViewGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         for (Usuario novaLista : listaUsuarios) {
-            model.addRow(new Object[]{novaLista.getCPFUsuario(),novaLista.getLoginUsuario(),novaLista.getNomeUsuario(),novaLista.getSenhaUsuario(),novaLista.getTipoUsuario()});
+            model.addRow(new Object[]{novaLista.getCPFUsuario(), novaLista.getLoginUsuario(), novaLista.getNomeUsuario(), novaLista.getSenhaUsuario(), novaLista.getTipoUsuario()});
         }
         jTable1.setModel(model);
-    }//GEN-LAST:event_PainelStateChanged
+    }
 
     /**
      * @param args the command line arguments
@@ -480,8 +555,11 @@ public class AdminViewGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Painel;
+    private javax.swing.JButton alterarUsuario;
+    private javax.swing.JButton atualizarTabela;
     private javax.swing.JTextField cargaHoraria;
     private javax.swing.JTextField cpf_usuario;
+    private javax.swing.JButton excluirUsuario;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

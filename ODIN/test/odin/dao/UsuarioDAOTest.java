@@ -58,7 +58,7 @@ public class UsuarioDAOTest extends TestCase {
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
             stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
-            usuarioDAO.alterar("test", "4321");
+            usuarioDAO.alterar("1111", "test","TesteAlterado","3211");
         } catch (SQLException e) {
             assertFalse(e.getMessage(), true);
             throw new SQLException(e.getMessage());
@@ -73,7 +73,7 @@ public class UsuarioDAOTest extends TestCase {
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
             stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
-            usuarioDAO.excluir(1111);
+            usuarioDAO.excluir("1111");
         } catch (SQLException e) {
             assertFalse(e.getMessage(), true);
             throw new SQLException(e.getMessage());
@@ -131,6 +131,19 @@ public class UsuarioDAOTest extends TestCase {
         } catch (SQLException e) {
             assertFalse(e.getMessage(), true);
         }finally{
+            conexao.rollback();
+        }
+    }
+    @Test
+    public void testDeveriaRetornarTrueSeCpfExistir()throws Exception{
+        try {
+            conexao.setAutoCommit(false);
+            Statement stmt = conexao.createStatement();
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
+            assertTrue(usuarioDAO.isCpfExiste("1111"));
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        } finally {
             conexao.rollback();
         }
     }

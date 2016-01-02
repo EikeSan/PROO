@@ -41,17 +41,19 @@ public class UsuarioDAO {
         }
     }
 
-    public void alterar(String nomeUsuario, String novaSenha) throws SQLException {
+    public void alterar(String cpfUsuario, String novoNome, String novoLogin,String novaSenha) throws SQLException {
         Statement stmt;
         try {
             stmt = conexaoMySQL().createStatement();
-            stmt.executeUpdate("UPDATE usuario SET senha='" + novaSenha + "' WHERE usuario='" + nomeUsuario + "'");
+            if(isCpfExiste(cpfUsuario) == true){
+                stmt.executeUpdate("UPDATE usuario SET senha='" + novaSenha + "',usuario='"+novoLogin+"', nome='"+novoNome+"' WHERE cpf='" + cpfUsuario + "'");
+            }
         } catch (SQLException e) {
             throw new SQLException("Erro ao alterar usuário -" + e.getMessage());
         }
     }
 
-    public void excluir(int cpfUsuario) throws SQLException {
+    public void excluir(String cpfUsuario) throws SQLException {
         Statement stmt;
         try {
             stmt = conexaoMySQL().createStatement();
@@ -72,6 +74,20 @@ public class UsuarioDAO {
             return usuarioEncontrado;
         } catch (SQLException e) {
             throw new SQLException("Erro ao conslutar usuario - " + e.getMessage());
+        }
+    }
+    
+    public boolean isCpfExiste(String cpf)throws SQLException{
+        ResultSet rs;
+        Statement stmt;
+        try {
+            PreparedStatement pstm = conexaoMySQL().prepareStatement("select usuario from usuario where cpf ='" + cpf + "'");
+            rs = pstm.executeQuery();
+            boolean next = rs.next();
+            String cpfEncontrado = rs.getString(1);
+            return true;
+        } catch (Exception e) {
+            throw new SQLException("CPF não existe!"+e.getMessage());
         }
     }
 
