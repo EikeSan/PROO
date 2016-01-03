@@ -33,6 +33,8 @@ public class UsuarioBO {
         return listaUsuarios;
     }
     
+    
+    
     public void excluirUsuario(String cpf) throws SQLException{
         usuarioDAO = new UsuarioDAO();
         usuarioDAO.excluir(cpf);

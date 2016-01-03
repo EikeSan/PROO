@@ -41,6 +41,7 @@ public class OdinViewGUI extends javax.swing.JFrame {
         senhaUsuario = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Autenticação");
 
         jLabel1.setText("LOGIN");
 
