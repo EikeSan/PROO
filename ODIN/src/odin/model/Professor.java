@@ -10,5 +10,11 @@ package odin.model;
  * @author Eike
  */
 public class Professor extends Usuario{
-    
+    private int codigoProfessor;
+    public void setCodigoProfessor(int codigo){
+        this.codigoProfessor = codigo;
+    }
+    public int getCodigoProfessor(){
+        return this.codigoProfessor;
+    }
 }

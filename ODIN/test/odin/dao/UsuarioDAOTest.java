@@ -51,6 +51,8 @@ public class UsuarioDAOTest extends TestCase {
             conexao.rollback();
         }
     }
+    
+   
 
     @Test
     public void testDeveriaAlterarUsuarioCadastrado() throws Exception {
@@ -81,7 +83,38 @@ public class UsuarioDAOTest extends TestCase {
             conexao.rollback();
         }
     }
-
+    @Test 
+    public void testDeveriaVincularProfessor()throws Exception{
+        try{
+            conexao.setAutoCommit(false);
+            Statement stmt = conexao.createStatement();
+            stmt.executeUpdate("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','Paulo Guina','Ronilda','1234','Professor')");
+            stmt.executeUpdate("insert into disciplina(codigo_disciplina,nome_disciplina,carga_horaria) values('99999','Química','80')");
+            stmt.executeUpdate("UPDATE professor SET codigo_professor = 99999 WHERE cpf = '1111'");
+            usuarioDAO.vincularProfessor(99999, 99999);
+        }catch (SQLException e){
+            assertFalse(e.getMessage(), true);
+            throw new SQLException(e.getMessage());
+        }finally {
+            conexao.rollback();
+        }
+    }
+    @Test public void testDeveriaDesvincularProfessor()throws Exception{
+        try{
+            conexao.setAutoCommit(false);
+            Statement stmt = conexao.createStatement();
+            stmt.executeUpdate("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','Paulo Guina','Ronilda','1234','Professor')");
+            stmt.executeUpdate("insert into disciplina(codigo_disciplina,nome_disciplina,carga_horaria) values('99999','Química','80')");
+            stmt.executeUpdate("UPDATE professor SET codigo_professor = 99999 WHERE cpf = '1111'");
+            usuarioDAO.desvincularProfessor(99999, 99999);
+        
+        }catch (SQLException e){
+            assertFalse(e.getMessage(), true);
+            throw new SQLException(e.getMessage());
+        }finally {
+            conexao.rollback();
+        }
+    }
     @Test
     public void testDeveriaRetornarUsuarioCadastrado() throws Exception {
         try {

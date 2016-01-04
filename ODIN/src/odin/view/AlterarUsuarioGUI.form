@@ -177,6 +177,9 @@
         <Component class="javax.swing.JTextField" name="recebeSenha">
         </Component>
         <Component class="javax.swing.JTextField" name="recebeCPF">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

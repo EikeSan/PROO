@@ -305,6 +305,12 @@ public class AdminViewGUI extends javax.swing.JFrame {
 
         jTabbedPane5.addTab("Usuário", Painel);
 
+        jTabbedPane6.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane6StateChanged(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Nome:");
@@ -510,7 +516,6 @@ public class AdminViewGUI extends javax.swing.JFrame {
     private void PainelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PainelStateChanged
         // TODO add your handling code here:
         gerarTabelaUsuario();
-        gerarTabelaDisciplina();
     }//GEN-LAST:event_PainelStateChanged
 
     private void botao_excluirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_excluirUsuarioActionPerformed
@@ -620,6 +625,11 @@ public class AdminViewGUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_botao_excluirDisciplinaActionPerformed
+
+    private void jTabbedPane6StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane6StateChanged
+        // TODO add your handling code here:
+        gerarTabelaDisciplina();
+    }//GEN-LAST:event_jTabbedPane6StateChanged
     public void gerarTabelaDisciplina() {
         String[] nomesColunas = {"Código da disciplina", "Nome da disciplina", "Carga horária"};
         DefaultTableModel model = new DefaultTableModel(null, nomesColunas);
