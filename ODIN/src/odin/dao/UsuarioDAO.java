@@ -106,21 +106,52 @@ public class UsuarioDAO {
         }
     }
 
-    public void vincularProfessor(int codigoDisciplina, int codigoProfessor) throws SQLException {
+
+
+    public void vincularProfessorTurma(int codigo_disciplina, int codigo_professor, int codigo_turma) {
         Statement stmt;
         try {
             stmt = conexaoMySQL().createStatement();
-            stmt.execute("INSERT into disciplina_por_professor(codigo_disciplina,codigo_professor) values('" + codigoDisciplina + "','" + codigoProfessor + "')");
+            stmt.execute("insert into disciplina_por_professor(codigo_disciplina,codigo_professor,codigo_turma) values('" + codigo_disciplina + "','" + codigo_professor + "','" + codigo_turma + "')");
         } catch (SQLException e) {
-            throw new SQLException("Erro ao inserir" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao vincular professor:  " + e.getMessage());
         }
     }
+
+    public void inserirNovaTurma(String nomeTurma) {
+        Statement stmt;
+        try {
+            stmt = conexaoMySQL().createStatement();
+            stmt.execute("insert into turma(nome_turma) values('" + nomeTurma + "')");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao inserir nova turma " + e.getMessage());
+        }
+    }
+
+    public int retornarUltimoCodigoTurma() {
+        ResultSet rs;
+        PreparedStatement pstm;
+        int codigo = 0;
+        try {
+            pstm = conexaoMySQL().prepareStatement("select * from turma order by codigo_turma desc limit 1");
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                if (!rs.getString("codigo_turma").isEmpty()){
+                codigo = Integer.parseInt(rs.getString("codigo_turma"));
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao retornar ultimo valor " + e.getMessage());
+        }
+        return codigo;
+    }
+
     public ArrayList<Professor> listarProfessoresVinculadosPorDisciplina(int codigoDisciplina) throws SQLException {
         ResultSet rs;
         PreparedStatement pstm;
         ArrayList<Professor> listaProfessores = new ArrayList<>();
         try {
-            pstm = conexaoMySQL().prepareStatement("SELECT * FROM disciplina_por_professor inner join professor on professor.codigo_professor = disciplina_por_professor.codigo_professor inner JOIN usuario on usuario.cpf = professor.cpf where disciplina_por_professor.codigo_disciplina = "+codigoDisciplina);
+            pstm = conexaoMySQL().prepareStatement("SELECT * FROM disciplina_por_professor inner join professor on professor.codigo_professor = disciplina_por_professor.codigo_professor inner JOIN usuario on usuario.cpf = professor.cpf where disciplina_por_professor.codigo_disciplina = " + codigoDisciplina);
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Professor professor = new Professor();
@@ -137,6 +168,7 @@ public class UsuarioDAO {
             throw new SQLException("Erro listar professores - " + e.getMessage());
         }
     }
+
     public ArrayList<Professor> listarProfessoresVinculados() throws SQLException {
         ResultSet rs;
         PreparedStatement pstm;
@@ -161,11 +193,12 @@ public class UsuarioDAO {
             throw new SQLException("Erro listar professores - " + e.getMessage());
         }
     }
-    public void desvincularProfessor(int codigoProfessor,int codigoDisciplina) throws SQLException {
+
+    public void desvincularProfessor(int codigoProfessor, int codigoDisciplina) throws SQLException {
         Statement stmt;
         try {
             stmt = conexaoMySQL().createStatement();
-            stmt.executeUpdate("DELETE FROM disciplina_por_professor WHERE codigo_professor = "+codigoProfessor+" and codigo_disciplina = "+codigoDisciplina);
+            stmt.executeUpdate("DELETE FROM disciplina_por_professor WHERE codigo_professor = " + codigoProfessor + " and codigo_disciplina = " + codigoDisciplina);
         } catch (SQLException e) {
             throw new SQLException("Erro ao excluir usuário -" + e.getMessage());
         }

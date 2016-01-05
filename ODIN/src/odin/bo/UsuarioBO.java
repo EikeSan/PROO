@@ -28,6 +28,17 @@ public class UsuarioBO {
             throw new SQLException(e.getMessage());
         }
     }
+    
+    public void vincularProfessorTurma(int codigo_disciplina,int codigo_professor){
+        usuarioDAO = new UsuarioDAO();
+        int codigo_turma = usuarioDAO.retornarUltimoCodigoTurma();
+        usuarioDAO.vincularProfessorTurma(codigo_disciplina, codigo_professor, codigo_turma);
+    }
+    
+    public void inserirNovaTurma(String nomeTurma){
+        usuarioDAO = new UsuarioDAO();
+        usuarioDAO.inserirNovaTurma(nomeTurma);
+    }
 
     public ArrayList<Usuario> consultarUsuario() throws SQLException {
         usuarioDAO = new UsuarioDAO();
@@ -62,14 +73,7 @@ public class UsuarioBO {
             JOptionPane.showMessageDialog(null, "Erro ao desvincular professor: "+e.getMessage());
         }
     }
-    public void vincularProfessor(int codigoDisciplina,int codigoProfessor){
-        usuarioDAO = new UsuarioDAO();
-        try {
-        usuarioDAO.vincularProfessor(codigoDisciplina, codigoProfessor);
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao vincular professor: "+e.getMessage());
-        }
-    }
+    
     public void excluirUsuario(String cpf) throws SQLException {
         usuarioDAO = new UsuarioDAO();
         usuarioDAO.excluir(cpf);

@@ -46,17 +46,9 @@ public class AlterarDisciplinaGUI extends javax.swing.JFrame {
         recebeCargaHoraria = new javax.swing.JTextField();
         botao_SalvarDisciplina = new javax.swing.JButton();
         botao_cancelarDisciplina = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        botao_vincularProfessor = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabelaNaoVinculados = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tabelaVinculados = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        botao_desvincularProfessor = new javax.swing.JButton();
-        botao_atualizarProfessores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Alterar disciplina");
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -99,57 +91,6 @@ public class AlterarDisciplinaGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Lista de professores não vinculados: ");
-
-        botao_vincularProfessor.setText("Vincular professor");
-        botao_vincularProfessor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_vincularProfessorActionPerformed(evt);
-            }
-        });
-
-        tabelaNaoVinculados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Código do professor", "CPF", "Nome do professor"
-            }
-        ));
-        jScrollPane3.setViewportView(tabelaNaoVinculados);
-
-        tabelaVinculados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "CPF", "Nome do professor"
-            }
-        ));
-        jScrollPane4.setViewportView(tabelaVinculados);
-
-        jLabel2.setText("Lista de professores vinculados: ");
-
-        botao_desvincularProfessor.setText("Desvincular Professor");
-        botao_desvincularProfessor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_desvincularProfessorActionPerformed(evt);
-            }
-        });
-
-        botao_atualizarProfessores.setText("Atualizar Dados");
-        botao_atualizarProfessores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_atualizarProfessoresActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,67 +103,30 @@ public class AlterarDisciplinaGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(recebeNome, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(recebeCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addComponent(recebeCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(170, 170, 170)
                 .addComponent(botao_SalvarDisciplina)
-                .addGap(51, 51, 51)
+                .addGap(106, 106, 106)
                 .addComponent(botao_cancelarDisciplina)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botao_vincularProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botao_desvincularProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botao_atualizarProfessores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(recebeCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(recebeNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(recebeCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(botao_SalvarDisciplina)
-                        .addComponent(botao_cancelarDisciplina)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(botao_atualizarProfessores)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botao_vincularProfessor)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botao_desvincularProfessor))))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(recebeCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(recebeNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(recebeCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botao_SalvarDisciplina)
+                    .addComponent(botao_cancelarDisciplina))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -238,59 +142,11 @@ public class AlterarDisciplinaGUI extends javax.swing.JFrame {
         
      }*/
 
-    public void gerarTabelaProfessoresVinculados() {
-        String[] nomesColunas = {"Código do professor", "CPF", "Nome do professor"};
-        DefaultTableModel model = new DefaultTableModel(null, nomesColunas);
-        ArrayList<Professor> listaProfessoresVinculados = new ArrayList<>();
-        UsuarioBO usuarioBO = new UsuarioBO();
-        int codigoDisciplina = Integer.parseInt(recebeCodigo.getText());
-        try {
-            listaProfessoresVinculados = usuarioBO.consultarProfessorVinculadoPorDisciplina(codigoDisciplina);
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminViewGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (Professor novaLista : listaProfessoresVinculados) {
-            model.addRow(new Object[]{novaLista.getCodigoProfessor(), novaLista.getCPFUsuario(), novaLista.getNomeUsuario()});
-        }
-        tabelaVinculados.setModel(model);
-    }
+    
 
-    public boolean isVinculado(int codigoProfessor) {
-        UsuarioBO usuarioBO = new UsuarioBO();
-        boolean isAchou = false;
-        ArrayList<Professor> listaProfessores = new ArrayList<>();
-        int codigoDisciplina = Integer.parseInt(recebeCodigo.getText());
-        try {
-            listaProfessores = usuarioBO.consultarProfessorVinculadoPorDisciplina(codigoDisciplina);
-        } catch (SQLException e) {
-            Logger.getLogger(AdminViewGUI.class.getName()).log(Level.SEVERE, null, e);
-        }
-        for (Professor novaLista : listaProfessores) {
-            if (novaLista.getCodigoProfessor() == codigoProfessor) {
-                isAchou = true;
-                break;
-            }
-        }
-        return isAchou;
-    }
+    
 
-    public void gerarTabelaProfessoresNaoVinculados() {
-        String[] nomesColunas = {"Código do professor", "CPF", "Nome do professor"};
-        DefaultTableModel model = new DefaultTableModel(null, nomesColunas);
-        ArrayList<Professor> listaProfessores = new ArrayList<>();
-        UsuarioBO usuarioBO = new UsuarioBO();
-        try {
-            listaProfessores = usuarioBO.consultarProfessor();
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminViewGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (Professor novaLista : listaProfessores) {
-            if (!isVinculado(novaLista.getCodigoProfessor())) {
-                model.addRow(new Object[]{novaLista.getCodigoProfessor(), novaLista.getCPFUsuario(), novaLista.getNomeUsuario()});
-            }
-        }
-        tabelaNaoVinculados.setModel(model);
-    }
+    
     private void botao_SalvarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_SalvarDisciplinaActionPerformed
         // TODO add your handling code here:
         DisciplinaBO disciplinaBO = new DisciplinaBO();
@@ -314,43 +170,8 @@ public class AlterarDisciplinaGUI extends javax.swing.JFrame {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
-        gerarTabelaProfessoresNaoVinculados();
-        gerarTabelaProfessoresVinculados();
+       
     }//GEN-LAST:event_formComponentShown
-
-    private void botao_vincularProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_vincularProfessorActionPerformed
-        // TODO add your handling code here:
-        int i = tabelaNaoVinculados.getSelectedRow();
-        if (i < 0) {
-            JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada!");
-        }
-        int codigoDisciplina = Integer.parseInt(recebeCodigo.getText().toString());
-        int codigoProfessor = Integer.parseInt(tabelaNaoVinculados.getValueAt(i, 0).toString());
-        UsuarioBO usuarioBO = new UsuarioBO();
-        usuarioBO.vincularProfessor(codigoDisciplina, codigoProfessor);
-        gerarTabelaProfessoresNaoVinculados();
-        gerarTabelaProfessoresVinculados();
-    }//GEN-LAST:event_botao_vincularProfessorActionPerformed
-
-    private void botao_desvincularProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_desvincularProfessorActionPerformed
-        // TODO add your handling code here:
-        UsuarioBO usuarioBO = new UsuarioBO();
-        int codigoDisciplina = Integer.parseInt(recebeCodigo.getText());
-        int i = tabelaVinculados.getSelectedRow();
-        if (i < 0) {
-            JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada!");
-        }
-        int codigoProfessor = Integer.parseInt(tabelaVinculados.getValueAt(i, 0).toString());
-        usuarioBO.desvincularProfessor(codigoProfessor, codigoDisciplina);
-        gerarTabelaProfessoresNaoVinculados();
-        gerarTabelaProfessoresVinculados();
-    }//GEN-LAST:event_botao_desvincularProfessorActionPerformed
-
-    private void botao_atualizarProfessoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_atualizarProfessoresActionPerformed
-        // TODO add your handling code here:
-        gerarTabelaProfessoresNaoVinculados();
-        gerarTabelaProfessoresVinculados();
-    }//GEN-LAST:event_botao_atualizarProfessoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -389,20 +210,11 @@ public class AlterarDisciplinaGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_SalvarDisciplina;
-    private javax.swing.JButton botao_atualizarProfessores;
     private javax.swing.JButton botao_cancelarDisciplina;
-    private javax.swing.JButton botao_desvincularProfessor;
-    private javax.swing.JButton botao_vincularProfessor;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField recebeCargaHoraria;
     private javax.swing.JTextField recebeCodigo;
     private javax.swing.JTextField recebeNome;
-    private javax.swing.JTable tabelaNaoVinculados;
-    private javax.swing.JTable tabelaVinculados;
     // End of variables declaration//GEN-END:variables
 }

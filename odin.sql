@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 02-Jan-2016 às 21:41
+-- Generation Time: 05-Jan-2016 às 00:36
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `odin`
 --
-
 DELIMITER $$
 --
 -- Procedures
@@ -33,7 +32,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InserirTipoUsuario` (IN `tipo` V
 END$$
 
 DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -52,12 +50,12 @@ CREATE TABLE `aluno` (
 --
 
 CREATE TABLE `aluno_por_disciplina` (
-  `nota_1` decimal(2,2) DEFAULT NULL,
-  `nota_2` decimal(2,2) DEFAULT NULL,
-  `nota_final` decimal(2,2) DEFAULT NULL,
+  `nota_final` decimal(4,2) DEFAULT NULL,
+  `nota_2` decimal(4,2) DEFAULT NULL,
   `faltas` int(11) DEFAULT NULL,
-  `codigo_disciplina` int(11) DEFAULT NULL,
-  `codigo_aluno` int(11) DEFAULT NULL
+  `nota_1` decimal(4,2) DEFAULT NULL,
+  `codigo_aluno` int(11) DEFAULT NULL,
+  `codigo_turma` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -67,9 +65,9 @@ CREATE TABLE `aluno_por_disciplina` (
 --
 
 CREATE TABLE `disciplina` (
-  `codigo_disciplina` int(11) NOT NULL,
+  `carga_horaria` int(11) DEFAULT NULL,
   `nome_disciplina` varchar(40) DEFAULT NULL,
-  `carga_horaria` int(11) DEFAULT NULL
+  `codigo_disciplina` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -80,7 +78,8 @@ CREATE TABLE `disciplina` (
 
 CREATE TABLE `disciplina_por_professor` (
   `codigo_disciplina` int(11) DEFAULT NULL,
-  `codigo_professor` int(11) DEFAULT NULL
+  `codigo_professor` int(11) DEFAULT NULL,
+  `codigo_turma` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -97,17 +96,27 @@ CREATE TABLE `professor` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `turma`
+--
+
+CREATE TABLE `turma` (
+  `codigo_turma` int(11) NOT NULL,
+  `nome_turma` varchar(40) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `usuario`
 --
 
 CREATE TABLE `usuario` (
   `cpf` varchar(20) NOT NULL,
-  `usuario` varchar(20) DEFAULT NULL,
   `nome` varchar(60) DEFAULT NULL,
+  `usuario` varchar(20) DEFAULT NULL,
   `senha` varchar(16) DEFAULT NULL,
   `tipo_usuario` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Extraindo dados da tabela `usuario`
 --
@@ -124,7 +133,6 @@ CREATE TRIGGER `trg_entradaUsuario` AFTER INSERT ON `usuario` FOR EACH ROW BEGIN
 end
 $$
 DELIMITER ;
-
 --
 -- Indexes for dumped tables
 --
@@ -139,10 +147,10 @@ ALTER TABLE `aluno`
 --
 -- Indexes for table `aluno_por_disciplina`
 --
-ALTER TABLE `aluno_por_disciplina`
-  ADD KEY `codigo_disciplina` (`codigo_disciplina`),
-  ADD KEY `codigo_aluno` (`codigo_aluno`);
-
+ALTER TABLE `aluno_por_turma`
+  ADD KEY `codigo_aluno` (`codigo_aluno`),
+  ADD KEY `codigo_turma` (`codigo_turma`);
+  
 --
 -- Indexes for table `disciplina`
 --
@@ -154,7 +162,8 @@ ALTER TABLE `disciplina`
 --
 ALTER TABLE `disciplina_por_professor`
   ADD KEY `codigo_disciplina` (`codigo_disciplina`),
-  ADD KEY `codigo_professor` (`codigo_professor`);
+  ADD KEY `codigo_professor` (`codigo_professor`),
+  ADD KEY `codigo_turma` (`codigo_turma`);
 
 --
 -- Indexes for table `professor`
@@ -164,11 +173,16 @@ ALTER TABLE `professor`
   ADD KEY `cpf` (`cpf`);
 
 --
+-- Indexes for table `turma`
+--
+ALTER TABLE `turma`
+  ADD PRIMARY KEY (`codigo_turma`);
+
+--
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`cpf`),
-  ADD UNIQUE KEY `usuario` (`usuario`);
+  ADD PRIMARY KEY (`cpf`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -178,7 +192,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `aluno`
 --
 ALTER TABLE `aluno`
-  MODIFY `codigo_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `codigo_aluno` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `disciplina`
 --
@@ -188,10 +202,14 @@ ALTER TABLE `disciplina`
 -- AUTO_INCREMENT for table `professor`
 --
 ALTER TABLE `professor`
-  MODIFY `codigo_professor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
+  MODIFY `codigo_professor` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `turma`
+  MODIFY `codigo_turma` int(11) not null AUTO_INCREMENT;
+ --
 -- Constraints for dumped tables
 --
+
 
 --
 -- Limitadores para a tabela `aluno`
@@ -203,15 +221,16 @@ ALTER TABLE `aluno`
 -- Limitadores para a tabela `aluno_por_disciplina`
 --
 ALTER TABLE `aluno_por_disciplina`
-  ADD CONSTRAINT `aluno_por_disciplina_ibfk_1` FOREIGN KEY (`codigo_disciplina`) REFERENCES `disciplina` (`codigo_disciplina`) ON DELETE CASCADE,
-  ADD CONSTRAINT `aluno_por_disciplina_ibfk_2` FOREIGN KEY (`codigo_aluno`) REFERENCES `aluno` (`codigo_aluno`) ON DELETE CASCADE;
-
+  ADD CONSTRAINT `aluno_por_disciplina_ibfk_1` FOREIGN KEY (`codigo_aluno`) REFERENCES `aluno` (`codigo_aluno`) ON DELETE CASCADE,
+  ADD CONSTRAINT `aluno_por_disciplina_ibfk_2` FOREIGN KEY (`codigo_turma`) REFERENCES `turma` (`codigo_turma`) ON DELETE CASCADE;
+  
 --
 -- Limitadores para a tabela `disciplina_por_professor`
 --
 ALTER TABLE `disciplina_por_professor`
   ADD CONSTRAINT `disciplina_por_professor_ibfk_1` FOREIGN KEY (`codigo_disciplina`) REFERENCES `disciplina` (`codigo_disciplina`) ON DELETE CASCADE,
-  ADD CONSTRAINT `disciplina_por_professor_ibfk_2` FOREIGN KEY (`codigo_professor`) REFERENCES `professor` (`codigo_professor`) ON DELETE CASCADE;
+  ADD CONSTRAINT `disciplina_por_professor_ibfk_2` FOREIGN KEY (`codigo_professor`) REFERENCES `professor` (`codigo_professor`) ON DELETE CASCADE,
+  ADD CONSTRAINT `disciplina_por_professor_ibfk_3` FOREIGN KEY (`codigo_turma`) REFERENCES `turma` (`codigo_turma`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `professor`

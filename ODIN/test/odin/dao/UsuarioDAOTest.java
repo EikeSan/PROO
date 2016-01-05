@@ -84,14 +84,15 @@ public class UsuarioDAOTest extends TestCase {
         }
     }
     @Test 
-    public void testDeveriaVincularProfessor()throws Exception{
+    public void testDeveriaVincularProfessorTurma()throws Exception{
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.executeUpdate("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','Paulo Guina','Ronilda','1234','Professor')");
-            stmt.executeUpdate("insert into disciplina(codigo_disciplina,nome_disciplina,carga_horaria) values('99999','Química','80')");
-            stmt.executeUpdate("UPDATE professor SET codigo_professor = 99999 WHERE cpf = '1111'");
-            usuarioDAO.vincularProfessor(99999, 99999);
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','Paulo Guina','Ronilda','1234','Professor')");
+            stmt.execute("insert into disciplina(codigo_disciplina,nome_disciplina,carga_horaria) values('1','Química','80')");
+            stmt.execute("insert into turma(codigo_turma,nome_turma) values ('1','PROO') ");
+            stmt.execute("UPDATE professor SET codigo_professor = 1 WHERE cpf = '1111'");
+            usuarioDAO.vincularProfessorTurma(1, 1,1);
         }catch (SQLException e){
             assertFalse(e.getMessage(), true);
             throw new SQLException(e.getMessage());
@@ -103,10 +104,10 @@ public class UsuarioDAOTest extends TestCase {
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.executeUpdate("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','Paulo Guina','Ronilda','1234','Professor')");
-            stmt.executeUpdate("insert into disciplina(codigo_disciplina,nome_disciplina,carga_horaria) values('99999','Química','80')");
-            stmt.executeUpdate("UPDATE professor SET codigo_professor = 99999 WHERE cpf = '1111'");
-            usuarioDAO.desvincularProfessor(99999, 99999);
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','Paulo Guina','Ronilda','1234','Professor')");
+            stmt.execute("insert into disciplina(codigo_disciplina,nome_disciplina,carga_horaria) values('1','Química','80')");
+            stmt.execute("UPDATE professor SET codigo_professor = 1 WHERE cpf = '1111'");
+            usuarioDAO.desvincularProfessor(1, 1);
         
         }catch (SQLException e){
             assertFalse(e.getMessage(), true);
@@ -115,6 +116,17 @@ public class UsuarioDAOTest extends TestCase {
             conexao.rollback();
         }
     }
+
+    /*@Test
+        public void testDeveriaRetornarUltimoCodigoTurma() throws Exception{
+        try{
+           
+        }catch(SQLException e){
+            
+        }finally{
+            conexao.rollback();
+        }
+    }*/
     @Test
     public void testDeveriaRetornarUsuarioCadastrado() throws Exception {
         try {
@@ -150,8 +162,8 @@ public class UsuarioDAOTest extends TestCase {
         try {
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
-            stmt.executeUpdate("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
-            stmt.executeUpdate("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('2222','test2','test2','1234','aluno')");
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','test','test','1234','aluno')");
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('2222','test2','test2','1234','aluno')");
 
             ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
