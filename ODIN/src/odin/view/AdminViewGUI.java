@@ -822,7 +822,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
         }else {
             UsuarioBO usuarioBO = new UsuarioBO();
             usuarioBO.inserirNovaTurma(text_nomeTurma.getText());
-            usuarioBO.vincularProfessor(Integer.parseInt(text_vincularCodigoDisciplina.getText()), Integer.parseInt(text_vincularCodigoProfessor.getText()));
+            usuarioBO.vincularProfessorTurma(Integer.parseInt(text_vincularCodigoDisciplina.getText()), Integer.parseInt(text_vincularCodigoProfessor.getText()));
             JOptionPane.showMessageDialog(null, "Turma inserida com sucesso!");
             text_nomeTurma.setText("");
             text_vincularCodigoDisciplina.setText("");
