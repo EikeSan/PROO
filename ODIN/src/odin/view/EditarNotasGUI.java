@@ -49,6 +49,7 @@ public class EditarNotasGUI extends javax.swing.JFrame {
         recebeNotaFinal = new javax.swing.JTextField();
         recebeNota2 = new javax.swing.JTextField();
         recebeFaltas = new javax.swing.JTextField();
+        text_codTurma = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alterar disciplina");
@@ -63,11 +64,11 @@ public class EditarNotasGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"
+                "Código", "Código da turma", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -117,16 +118,27 @@ public class EditarNotasGUI extends javax.swing.JFrame {
             }
         });
 
+        text_codTurma.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(170, 170, 170)
+                .addComponent(btnSalvarNotas)
+                .addGap(106, 106, 106)
+                .addComponent(botao_cancelarDisciplina)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(recebeCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(text_codTurma, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(recebeNome, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(recebeNota1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,15 +147,8 @@ public class EditarNotasGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(recebeNotaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(recebeFaltas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 24, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(170, 170, 170)
-                .addComponent(btnSalvarNotas)
-                .addGap(106, 106, 106)
-                .addComponent(botao_cancelarDisciplina)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(recebeFaltas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(102, 102, 102))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,8 +161,9 @@ public class EditarNotasGUI extends javax.swing.JFrame {
                     .addComponent(recebeNota1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(recebeNotaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(recebeNota2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(recebeFaltas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                    .addComponent(recebeFaltas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(text_codTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarNotas)
                     .addComponent(botao_cancelarDisciplina))
@@ -170,11 +176,12 @@ public class EditarNotasGUI extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(null, campos);
         jTable1.setModel(model);
         recebeCodigo.setText(dados[0].toString());
-        recebeNome.setText(dados[1].toString());
-        recebeNota1.setText(dados[2].toString());
-        recebeNota2.setText(dados[3].toString());
-        recebeNotaFinal.setText(dados[4].toString());
-        recebeFaltas.setText(dados[5].toString());
+        text_codTurma.setText(dados[1].toString());
+        recebeNome.setText(dados[2].toString());
+        recebeNota1.setText(dados[3].toString());
+        recebeNota2.setText(dados[4].toString());
+        recebeNotaFinal.setText(dados[5].toString());
+        recebeFaltas.setText(dados[6].toString());
     }
     /* public boolean isVinculado(String nome){
         
@@ -189,7 +196,8 @@ public class EditarNotasGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         double notaFinal = 0;
         AlunoDAO alunoDAO = new AlunoDAO();
-        int codigo = Integer.parseInt(recebeCodigo.getText());
+        int codigoAluno = Integer.parseInt(recebeCodigo.getText());
+        int codigoTurma = Integer.parseInt(text_codTurma.getText());
         String nomeAluno = recebeNome.getText();
         
         double nota1 = Double.parseDouble(recebeNota1.getText());
@@ -200,7 +208,7 @@ public class EditarNotasGUI extends javax.swing.JFrame {
         int faltas = Integer.parseInt(recebeFaltas.getText());
 
         try {
-            alunoDAO.editarNotas(codigo, nota1, nota2,notaFinal, faltas);
+            alunoDAO.editarNotas(codigoAluno,codigoTurma, nota1, nota2,notaFinal, faltas);
         } catch (SQLException ex) {
             Logger.getLogger(EditarNotasGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -277,5 +285,6 @@ public class EditarNotasGUI extends javax.swing.JFrame {
     private javax.swing.JTextField recebeNota1;
     private javax.swing.JTextField recebeNota2;
     private javax.swing.JTextField recebeNotaFinal;
+    private javax.swing.JTextField text_codTurma;
     // End of variables declaration//GEN-END:variables
 }

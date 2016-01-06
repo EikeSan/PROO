@@ -41,6 +41,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
         jTabbedPane5 = new javax.swing.JTabbedPane();
         Painel = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        btnLogout = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         text_cpfUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -109,6 +110,14 @@ public class AdminViewGUI extends javax.swing.JFrame {
         Painel.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 PainelStateChanged(evt);
+            }
+        });
+
+        btnLogout.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        btnLogout.setText("LOGOUT");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
             }
         });
 
@@ -219,6 +228,10 @@ public class AdminViewGUI extends javax.swing.JFrame {
                             .addComponent(text_loginUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(text_cpfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(245, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +260,8 @@ public class AdminViewGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tipo_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botao_cadastrarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(btnLogout))
         );
 
         Painel.addTab("Cadastro", jPanel1);
@@ -664,7 +678,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                 .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botao_VincularAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -673,13 +687,12 @@ public class AdminViewGUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botao_VincularAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Turmas cadastradas", jPanel6);
@@ -975,6 +988,13 @@ public class AdminViewGUI extends javax.swing.JFrame {
         vincularAlunosGUI.setVisible(true);
 
     }//GEN-LAST:event_botao_VincularAlunosActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        OdinViewGUI odinViewGUI = new OdinViewGUI();
+        odinViewGUI.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
     public void setNomeDisciplinaVinculada(String texto) {
         text_vincularNomeDisciplina.setText(texto);
     }
@@ -1084,6 +1104,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
     private javax.swing.JButton botao_novaTurma;
     private javax.swing.JButton botao_vincularDisciplina;
     private javax.swing.JButton botao_vincularDisciplina1;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JTextField cargaHoraria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

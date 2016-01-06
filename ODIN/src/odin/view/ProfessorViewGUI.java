@@ -186,7 +186,7 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
 
     private void btnEditarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlunoActionPerformed
         // TODO add your handling code here:
-        String[] colunas = {"Codigo", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
+        String[] colunas = {"Codigo","Código da disciplina", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
         EditarNotasGUI editarNotasGUI = new EditarNotasGUI();
 
         int i = tblAlunoPorDisciplina.getSelectedRow();
@@ -194,7 +194,7 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
             Component Painel;
             JOptionPane.showMessageDialog(rootPane, "Nenhuma linha selecionada!");
         }
-        Object[] dados = {tblAlunoPorDisciplina.getValueAt(i, 0), tblAlunoPorDisciplina.getValueAt(i, 1), tblAlunoPorDisciplina.getValueAt(i, 2), tblAlunoPorDisciplina.getValueAt(i, 3), tblAlunoPorDisciplina.getValueAt(i, 4), tblAlunoPorDisciplina.getValueAt(i, 5)};
+        Object[] dados = {tblAlunoPorDisciplina.getValueAt(i, 0), tblAlunoPorDisciplina.getValueAt(i, 1), tblAlunoPorDisciplina.getValueAt(i, 2), tblAlunoPorDisciplina.getValueAt(i, 3), tblAlunoPorDisciplina.getValueAt(i, 4), tblAlunoPorDisciplina.getValueAt(i, 5),tblAlunoPorDisciplina.getValueAt(i, 6)};
         editarNotasGUI.gerarTabela(colunas, dados);
         editarNotasGUI.setVisible(true);
 //        editarNotasGUI.setModel(gerarModeloTabelaDisciplina());
@@ -228,7 +228,7 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
     }
 
     public void gerarTabelaAlunos(int codDisciplina) throws SQLException {
-        String[] colunas = {"Codigo", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
+        String[] colunas = {"Codigo do Aluno","Código da turma", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
         DefaultTableModel modelo = new DefaultTableModel(null, colunas);
         ArrayList<Aluno> dadosRecebidos = new ArrayList();
         AlunoDAO alunoDAO = new AlunoDAO();
@@ -236,7 +236,7 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
         dadosRecebidos = alunoDAO.listarAlunosPorDisciplina(codDisciplina);
 
         for (Aluno novosAlunos : dadosRecebidos) {
-            modelo.addRow(new Object[]{novosAlunos.getCodigo_aluno(), novosAlunos.getNomeUsuario(), novosAlunos.getNota1(), novosAlunos.getNota2(), novosAlunos.getNotaFinal(), novosAlunos.getFaltas()});
+            modelo.addRow(new Object[]{novosAlunos.getCodigo_aluno(),novosAlunos.getCodigoTurma(), novosAlunos.getNomeUsuario(), novosAlunos.getNota1(), novosAlunos.getNota2(), novosAlunos.getNotaFinal(), novosAlunos.getFaltas()});
         }
         tblAlunoPorDisciplina.setModel(modelo);
 

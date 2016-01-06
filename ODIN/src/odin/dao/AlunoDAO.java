@@ -59,7 +59,7 @@ public class AlunoDAO {
         ArrayList<Aluno> listaAlunos = new ArrayList<>();
 
         try {
-            pstm = conexaoMySQL().prepareStatement("SELECT ap.codigo_aluno,u.nome, ap.nota_1, ap.nota_2,ap.nota_final, ap.faltas FROM aluno_por_turma ap inner join aluno a on a.codigo_aluno = ap.codigo_aluno inner JOIN usuario u on u.cpf = a.cpf where ap.codigo_turma =  " + codigoTurma + " order by u.nome");
+            pstm = conexaoMySQL().prepareStatement("SELECT ap.codigo_aluno,ap.codigo_turma,u.nome, ap.nota_1, ap.nota_2,ap.nota_final, ap.faltas FROM aluno_por_turma ap inner join aluno a on a.codigo_aluno = ap.codigo_aluno inner JOIN usuario u on u.cpf = a.cpf where ap.codigo_turma =  " + codigoTurma + " order by u.nome");
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Aluno aluno = new Aluno();
@@ -69,6 +69,7 @@ public class AlunoDAO {
                 aluno.setNota2(Double.parseDouble(rs.getString("nota_2")));
                 aluno.setNotaFinal(Double.parseDouble(rs.getString("nota_final")));
                 aluno.setFaltas(Integer.parseInt(rs.getString("faltas")));
+                aluno.setCodigoTurma(Integer.parseInt(rs.getString("codigo_turma")));
                 listaAlunos.add(aluno);
             }
             return listaAlunos;
@@ -95,12 +96,12 @@ public class AlunoDAO {
             throw new SQLException("Erro ao desvincular aluno -" + e.getMessage());
         }
     }
-     public void editarNotas(int codUsuario, double nota1, double nota2,double notaFinal,int faltas) throws SQLException {
+     public void editarNotas(int codAluno,int codTurma, double nota1, double nota2,double notaFinal,int faltas) throws SQLException {
         Statement stmt;
         try {
             stmt = conexaoMySQL().createStatement();
-            if (isCodigoAlunoExiste(codUsuario) == true) {
-                stmt.executeUpdate("UPDATE aluno_por_turma SET nota_1='" + nota1 + "',nota_2='" + nota2 + "',nota_final='" + notaFinal + "', faltas='" + faltas + "' WHERE codigo_aluno='" + codUsuario + "'");
+            if (isCodigoAlunoExiste(codAluno) == true) {
+                stmt.executeUpdate("UPDATE aluno_por_turma SET nota_1='" + nota1 + "',nota_2='" + nota2 + "',nota_final='" + notaFinal + "', faltas='" + faltas + "' WHERE codigo_aluno='" + codAluno + "' and codigo_turma ='"+codTurma+"'");
             }
         } catch (SQLException e) {
             throw new SQLException("Erro ao editar notas e/ou faltas -" + e.getMessage());
