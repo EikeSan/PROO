@@ -11,7 +11,7 @@ package odin.model;
  */
 public class Aluno extends Usuario {
 
-    private int faltas,codigoAluno;
+    private int faltas,codigoAluno,codigoTurma;
     private double nota1;
     private double nota2;
     private double notaFinal;
@@ -52,6 +52,13 @@ public class Aluno extends Usuario {
         this.codigoAluno = codigo_aluno;
     }
 
+    public void setCodigoTurma(int codigoTurma) {
+        this.codigoTurma = codigoTurma;
+    }
+
+    public int getCodigoTurma() {
+        return codigoTurma;
+    }
     public int getCodigo_aluno() {
         return this.codigoAluno;
     }

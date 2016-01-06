@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import odin.model.*;
 
 /**
@@ -74,7 +75,7 @@ public class UsuarioDAO {
             String usuarioEncontrado = rs.getString(1);
             return usuarioEncontrado;
         } catch (SQLException e) {
-            throw new SQLException("Erro ao conslutar usuario - " + e.getMessage());
+            throw new SQLException("Erro ao consultar usuario - " + e.getMessage());
         }
     }
 
@@ -197,6 +198,8 @@ public class UsuarioDAO {
         }
     }
 
+   
+
     public ArrayList<Turma> listarTurmas() throws SQLException {
         ResultSet rs;
         PreparedStatement pstm;
@@ -249,8 +252,6 @@ public class UsuarioDAO {
             throw new SQLException("Erro listar professores - " + e.getMessage());
         }
     }
-
-   
 
     public ArrayList<Professor> listarProfessores() throws SQLException {
         ResultSet rs;

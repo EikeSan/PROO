@@ -58,6 +58,7 @@ public class LoginBO {
             case "Aluno": {
                 alunoView.setVisible(true);
                 String cpf = usuarioDAO.consultar(nomeUsuario);
+                alunoView.gerarTabelaAluno(cpf);
                 break;
             }
             case "Professor": {

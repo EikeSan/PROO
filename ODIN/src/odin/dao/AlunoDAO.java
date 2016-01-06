@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import odin.model.*;
 
 /**
@@ -31,7 +32,7 @@ public class AlunoDAO {
         conexao = banco.getConexao("jdbc:mysql", "localhost", "odin", "root", "");
         return this.conexao;
     }
-
+    
     public ArrayList<Aluno> listarAlunos() throws SQLException {
         ResultSet rs;
         PreparedStatement pstm;
@@ -118,5 +119,26 @@ public class AlunoDAO {
         } catch (Exception e) {
             throw new SQLException("Codigo não existe!" + e.getMessage());
         }
+    }
+    
+     public DefaultTableModel listarTurmasAluno(String cpf) throws SQLException {
+        ResultSet rs;
+        PreparedStatement pstm;
+        String[] nomesColunas = {"Código do aluno", "Nome","Código da turma","Nome da turma","Nota AV1","Nota AV2","Nota final","Faltas"};
+         DefaultTableModel model = new DefaultTableModel(null, nomesColunas);
+        try {
+            pstm = conexaoMySQL().prepareStatement("SELECT a.codigo_aluno,u.nome,t.codigo_turma,t.nome_turma,apt.nota_1,apt.nota_2,apt.nota_final,apt.faltas \n"
+                    + "FROM `aluno_por_turma` apt \n"
+                    + "inner JOIN aluno a on a.codigo_aluno = apt.codigo_aluno \n"
+                    + "inner join usuario u on u.cpf = a.cpf \n"
+                    + "inner JOIN turma t on t.codigo_turma = apt.codigo_turma where u.cpf ='"+cpf+"'");
+            rs = pstm.executeQuery();
+            while(rs.next()){
+                model.addRow(new Object[]{rs.getString("codigo_aluno"),rs.getString("nome"),rs.getString("codigo_turma"),rs.getString("nome_turma"),rs.getString("nota_1"),rs.getString("nota_2"),rs.getString("nota_final"),rs.getString("faltas")});
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar turmas de aluno");
+        }
+        return model;
     }
 }
