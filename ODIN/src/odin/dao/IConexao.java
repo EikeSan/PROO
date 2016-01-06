@@ -11,5 +11,6 @@ import java.sql.SQLException;
  * @author eike.santiago
  */
 public interface IConexao {
-    Connection getConexao(String tipoBanco, String endereco, String nomeBanco, String nomeUsuario, String senha) throws SQLException;
+     Connection getConexao(String tipoBanco, String endereco, String nomeBanco, String nomeUsuario, String senha) throws SQLException;
 }
+

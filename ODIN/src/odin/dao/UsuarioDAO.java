@@ -42,7 +42,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void alterar(String cpfUsuario, String novoNome, String novoLogin, String novaSenha) throws SQLException {
+    public void alterar(String cpfUsuario, String novoLogin, String novoNome, String novaSenha) throws SQLException {
         Statement stmt;
         try {
             stmt = conexaoMySQL().createStatement();
@@ -120,7 +120,7 @@ public class UsuarioDAO {
         Statement stmt;
         try {
             stmt = conexaoMySQL().createStatement();
-            stmt.execute("update turma set nome_turma = '" + codigoTurma + "'" + "where codigo_turma ='" + codigoTurma + "'");
+            stmt.execute("update turma set nome_turma = '" + nomeTurma + "'" + "where codigo_turma ='" + codigoTurma + "'");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar turma " + e.getMessage());
         }

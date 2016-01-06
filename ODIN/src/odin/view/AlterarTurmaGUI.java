@@ -7,6 +7,7 @@ package odin.view;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import odin.dao.UsuarioDAO;
 
 /**
  *
@@ -233,7 +234,15 @@ public class AlterarTurmaGUI extends javax.swing.JFrame {
 
     private void botao_alterarConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_alterarConfirmarActionPerformed
         // TODO add your handling code here:
-  
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        if (!text_alterarNomeTurma.getText().isEmpty()){
+            usuarioDAO.alterarTurma(Integer.parseInt(text_alterarCodigoTurma.getText()), text_alterarNomeTurma.getText());
+            usuarioDAO.alterarProfessorPorTurma(Integer.parseInt(text_alterarVincularCodigoProfessor.getText()), Integer.parseInt(text_alterarVincularCodigoDisciplina.getText()), Integer.parseInt(text_alterarCodigoTurma.getText()));
+            JOptionPane.showMessageDialog(null, "Turma alterada com sucesso!");
+            dispose();
+        }else
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente");
+        
     }//GEN-LAST:event_botao_alterarConfirmarActionPerformed
 
     private void text_alterarVincularCodigoDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_alterarVincularCodigoDisciplinaActionPerformed
@@ -259,7 +268,7 @@ public class AlterarTurmaGUI extends javax.swing.JFrame {
         text_alterarVincularCodigoProfessor.setText(tabelaVincularProfessor.getValueAt(i, 0).toString());
         text_alterarVincularNomeProfessor.setText(tabelaVincularProfessor.getValueAt(i, 1).toString());
     }//GEN-LAST:event_botao_alterararVincularDisciplina1ActionPerformed
-    public void receberDados(String codigoTurma,String nomeTurma,String codigoProfessor,String nomeProfessor,String codigoDisciplina,String nomeDisciplina,DefaultTableModel modeloProfessores,DefaultTableModel modeloDisciplinas){
+    public void receberDados(String codigoTurma,String nomeTurma,String codigoDisciplina,String nomeDisciplina,String codigoProfessor,String nomeProfessor,DefaultTableModel modeloProfessores,DefaultTableModel modeloDisciplinas){
         tabelaVincularDisciplina.setModel(modeloDisciplinas);
         tabelaVincularProfessor.setModel(modeloProfessores);
         text_alterarCodigoTurma.setText(codigoTurma);
