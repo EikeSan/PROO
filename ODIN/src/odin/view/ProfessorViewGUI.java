@@ -5,6 +5,7 @@
  */
 package odin.view;
 
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -43,6 +44,9 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
         cmbTurmas = new javax.swing.JComboBox();
         btnSelecionarTurma = new javax.swing.JButton();
         cmbCodTurma = new javax.swing.JComboBox();
+        btnAtualizar = new javax.swing.JButton();
+        btnEditarAluno = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +84,27 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
 
         cmbCodTurma.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
+        btnEditarAluno.setText("Editar");
+        btnEditarAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarAlunoActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setText("LOGOUT");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,12 +119,20 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
                                 .addComponent(cmbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
                                 .addComponent(btnSelecionarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(76, 76, 76)
+                                .addComponent(btnEditarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(cmbCodTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(340, 340, 340))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,8 +146,12 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSelecionarTurma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(61, 61, 61))
+                    .addComponent(btnSelecionarTurma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditarAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -136,6 +173,34 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
             Logger.getLogger(ProfessorViewGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSelecionarTurmaActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        // TODO add your handling code here:
+        btnSelecionarTurma.doClick();
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void btnEditarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlunoActionPerformed
+        // TODO add your handling code here:
+        String[] colunas = {"Codigo","Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
+        EditarNotasGUI editarNotasGUI = new EditarNotasGUI();
+        
+        int i = tblAlunoPorDisciplina.getSelectedRow();
+        if (i < 0) {
+            Component Painel;
+            JOptionPane.showMessageDialog(rootPane, "Nenhuma linha selecionada!");
+        }
+        Object[] dados = {tblAlunoPorDisciplina.getValueAt(i, 0), tblAlunoPorDisciplina.getValueAt(i, 1), tblAlunoPorDisciplina.getValueAt(i, 2),tblAlunoPorDisciplina.getValueAt(i, 3),tblAlunoPorDisciplina.getValueAt(i, 4),tblAlunoPorDisciplina.getValueAt(i, 5)};
+        editarNotasGUI.gerarTabela(colunas, dados);
+        editarNotasGUI.setVisible(true);
+//        editarNotasGUI.setModel(gerarModeloTabelaDisciplina());
+    }//GEN-LAST:event_btnEditarAlunoActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        OdinViewGUI odinViewGUI = new OdinViewGUI();
+        odinViewGUI.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
     public void setComboBox(String cpf) throws SQLException{
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         DefaultComboBoxModel modelo2 = new DefaultComboBoxModel();
@@ -202,6 +267,9 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnEditarAluno;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnSelecionarTurma;
     private javax.swing.JComboBox cmbCodTurma;
     private javax.swing.JComboBox cmbTurmas;

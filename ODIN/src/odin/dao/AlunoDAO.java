@@ -94,4 +94,29 @@ public class AlunoDAO {
             throw new SQLException("Erro ao desvincular aluno -" + e.getMessage());
         }
     }
+     public void editarNotas(int codUsuario, double nota1, double nota2,int faltas) throws SQLException {
+        Statement stmt;
+        try {
+            stmt = conexaoMySQL().createStatement();
+            if (isCodigoAlunoExiste(codUsuario) == true) {
+                stmt.executeUpdate("UPDATE aluno_por_turma SET nota_1='" + nota1 + "',nota_2='" + nota2 + "', faltas='" + faltas + "' WHERE codigo_aluno='" + codUsuario + "'");
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Erro ao editar notas e/ou faltas -" + e.getMessage());
+        }
+    }
+    
+    public boolean isCodigoAlunoExiste(int codigoAluno) throws SQLException {
+        ResultSet rs;
+        Statement stmt;
+        try {
+            PreparedStatement pstm = conexaoMySQL().prepareStatement("select cpf from aluno where codigo_aluno ='" + codigoAluno + "'");
+            rs = pstm.executeQuery();
+            boolean next = rs.next();
+            String cpfEncontrado = rs.getString(1);
+            return true;
+        } catch (Exception e) {
+            throw new SQLException("Codigo não existe!" + e.getMessage());
+        }
+    }
 }
