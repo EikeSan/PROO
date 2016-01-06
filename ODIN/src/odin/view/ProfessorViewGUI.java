@@ -49,6 +49,11 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         tblAlunoPorDisciplina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,10 +168,10 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
 
     private void btnSelecionarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarTurmaActionPerformed
         // TODO add your handling code here:
-       int index =cmbTurmas.getSelectedIndex();
-       cmbCodTurma.setSelectedIndex(index);
-       String nome = cmbCodTurma.getSelectedItem().toString();
-       int codigo = Integer.parseInt(nome);
+        int index = cmbTurmas.getSelectedIndex();
+        cmbCodTurma.setSelectedIndex(index);
+        String nome = cmbCodTurma.getSelectedItem().toString();
+        int codigo = Integer.parseInt(nome);
         try {
             gerarTabelaAlunos(codigo);
         } catch (SQLException ex) {
@@ -181,15 +186,15 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
 
     private void btnEditarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlunoActionPerformed
         // TODO add your handling code here:
-        String[] colunas = {"Codigo","Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
+        String[] colunas = {"Codigo", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
         EditarNotasGUI editarNotasGUI = new EditarNotasGUI();
-        
+
         int i = tblAlunoPorDisciplina.getSelectedRow();
         if (i < 0) {
             Component Painel;
             JOptionPane.showMessageDialog(rootPane, "Nenhuma linha selecionada!");
         }
-        Object[] dados = {tblAlunoPorDisciplina.getValueAt(i, 0), tblAlunoPorDisciplina.getValueAt(i, 1), tblAlunoPorDisciplina.getValueAt(i, 2),tblAlunoPorDisciplina.getValueAt(i, 3),tblAlunoPorDisciplina.getValueAt(i, 4),tblAlunoPorDisciplina.getValueAt(i, 5)};
+        Object[] dados = {tblAlunoPorDisciplina.getValueAt(i, 0), tblAlunoPorDisciplina.getValueAt(i, 1), tblAlunoPorDisciplina.getValueAt(i, 2), tblAlunoPorDisciplina.getValueAt(i, 3), tblAlunoPorDisciplina.getValueAt(i, 4), tblAlunoPorDisciplina.getValueAt(i, 5)};
         editarNotasGUI.gerarTabela(colunas, dados);
         editarNotasGUI.setVisible(true);
 //        editarNotasGUI.setModel(gerarModeloTabelaDisciplina());
@@ -201,12 +206,17 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
         odinViewGUI.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
-    public void setComboBox(String cpf) throws SQLException{
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formComponentShown
+    public void setComboBox(String cpf) throws SQLException {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         DefaultComboBoxModel modelo2 = new DefaultComboBoxModel();
         ArrayList<Turma> turma = new ArrayList<>();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        
+
         turma = usuarioDAO.listarTurmaPorProfessor(cpf);
         for (Turma dadosTurma : turma) {
             modelo.addElement(dadosTurma.getNomeTurma());
@@ -214,23 +224,24 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
         }
         cmbTurmas.setModel(modelo);
         cmbCodTurma.setModel(modelo2);
-        
+
     }
-    
-    public void gerarTabelaAlunos(int codDisciplina) throws SQLException{
-        String[] colunas = {"Codigo","Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
+
+    public void gerarTabelaAlunos(int codDisciplina) throws SQLException {
+        String[] colunas = {"Codigo", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
         DefaultTableModel modelo = new DefaultTableModel(null, colunas);
         ArrayList<Aluno> dadosRecebidos = new ArrayList();
         AlunoDAO alunoDAO = new AlunoDAO();
-        
+
         dadosRecebidos = alunoDAO.listarAlunosPorDisciplina(codDisciplina);
-      
+
         for (Aluno novosAlunos : dadosRecebidos) {
-            modelo.addRow(new Object[]{novosAlunos.getCodigoUsuario(),novosAlunos.getNomeUsuario(),novosAlunos.getNota1(),novosAlunos.getNota2(),novosAlunos.getNotaFinal(),novosAlunos.getFaltas()});
+            modelo.addRow(new Object[]{novosAlunos.getCodigo_aluno(), novosAlunos.getNomeUsuario(), novosAlunos.getNota1(), novosAlunos.getNota2(), novosAlunos.getNotaFinal(), novosAlunos.getFaltas()});
         }
         tblAlunoPorDisciplina.setModel(modelo);
-        
+
     }
+
     /**
      * @param args the command line arguments
      */

@@ -94,12 +94,12 @@ public class AlunoDAO {
             throw new SQLException("Erro ao desvincular aluno -" + e.getMessage());
         }
     }
-     public void editarNotas(int codUsuario, double nota1, double nota2,int faltas) throws SQLException {
+     public void editarNotas(int codUsuario, double nota1, double nota2,double notaFinal,int faltas) throws SQLException {
         Statement stmt;
         try {
             stmt = conexaoMySQL().createStatement();
             if (isCodigoAlunoExiste(codUsuario) == true) {
-                stmt.executeUpdate("UPDATE aluno_por_turma SET nota_1='" + nota1 + "',nota_2='" + nota2 + "', faltas='" + faltas + "' WHERE codigo_aluno='" + codUsuario + "'");
+                stmt.executeUpdate("UPDATE aluno_por_turma SET nota_1='" + nota1 + "',nota_2='" + nota2 + "',nota_final='" + notaFinal + "', faltas='" + faltas + "' WHERE codigo_aluno='" + codUsuario + "'");
             }
         } catch (SQLException e) {
             throw new SQLException("Erro ao editar notas e/ou faltas -" + e.getMessage());

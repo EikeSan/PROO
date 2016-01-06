@@ -187,15 +187,20 @@ public class EditarNotasGUI extends javax.swing.JFrame {
     
     private void btnSalvarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarNotasActionPerformed
         // TODO add your handling code here:
+        double notaFinal = 0;
         AlunoDAO alunoDAO = new AlunoDAO();
         int codigo = Integer.parseInt(recebeCodigo.getText());
         String nomeAluno = recebeNome.getText();
+        
         double nota1 = Double.parseDouble(recebeNota1.getText());
         double nota2 = Double.parseDouble(recebeNota2.getText());
+        if (!recebeNota1.getText().isEmpty() || !recebeNota2.getText().isEmpty()){
+            notaFinal = (nota1+nota2)/2;
+        }
         int faltas = Integer.parseInt(recebeFaltas.getText());
 
         try {
-            alunoDAO.editarNotas(codigo, nota1, nota2, faltas);
+            alunoDAO.editarNotas(codigo, nota1, nota2,notaFinal, faltas);
         } catch (SQLException ex) {
             Logger.getLogger(EditarNotasGUI.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -216,6 +216,7 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
             try {
                 alunoDAO.desvincularAluno(Integer.parseInt(tabelaAlunosVinculados.getValueAt(i, 0).toString()), Integer.parseInt(text_vincularAlunoCodigoTurma.getText()));
                 gerarTabelaAlunosVinculados(Integer.parseInt(text_vincularAlunoCodigoTurma.getText()));
+                gerarTabelaAlunosNaoVinculados();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Erro " + e.getMessage());
             }
