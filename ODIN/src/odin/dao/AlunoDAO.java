@@ -62,7 +62,7 @@ public class AlunoDAO {
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Aluno aluno = new Aluno();
-                aluno.setCodigoUsuario(Integer.parseInt(rs.getString("codigo_aluno")));
+                aluno.setCodigo_aluno(Integer.parseInt(rs.getString("codigo_aluno")));
                 aluno.setNomeUsuario(rs.getString("nome"));
                 aluno.setNota1(Double.parseDouble(rs.getString("nota_1")));
                 aluno.setNota2(Double.parseDouble(rs.getString("nota_2")));

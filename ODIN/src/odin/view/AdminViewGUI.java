@@ -94,7 +94,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
         botao_excluirTurma = new javax.swing.JButton();
         botao_alterarTurma1 = new javax.swing.JButton();
         botao_atualizarTabelaTurma = new javax.swing.JButton();
-        botao_atualizarTabelaTurma1 = new javax.swing.JButton();
+        botao_VincularAlunos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Logado como: Administrador");
@@ -309,9 +309,9 @@ public class AdminViewGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(123, 123, 123)
                 .addComponent(botao_atualizarTabelaUsuario)
-                .addGap(87, 87, 87)
+                .addGap(41, 41, 41)
                 .addComponent(botao_alterarUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(botao_excluirUsuario)
                 .addGap(178, 178, 178))
         );
@@ -645,11 +645,11 @@ public class AdminViewGUI extends javax.swing.JFrame {
             }
         });
 
-        botao_atualizarTabelaTurma1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        botao_atualizarTabelaTurma1.setText("Vincular Alunos");
-        botao_atualizarTabelaTurma1.addActionListener(new java.awt.event.ActionListener() {
+        botao_VincularAlunos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        botao_VincularAlunos.setText("Vincular/Desvincular Alunos");
+        botao_VincularAlunos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_atualizarTabelaTurma1ActionPerformed(evt);
+                botao_VincularAlunosActionPerformed(evt);
             }
         });
 
@@ -659,26 +659,26 @@ public class AdminViewGUI extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
                 .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(botao_atualizarTabelaTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addGap(18, 18, 18)
+                .addComponent(botao_VincularAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botao_atualizarTabelaTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botao_VincularAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 14, Short.MAX_VALUE))
         );
 
@@ -690,7 +690,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 820, Short.MAX_VALUE)
+            .addComponent(jTabbedPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -788,10 +788,11 @@ public class AdminViewGUI extends javax.swing.JFrame {
         int i = tabelaUsuario.getSelectedRow();
         if (i < 0) {
             JOptionPane.showMessageDialog(Painel, "Nenhuma linha selecionada!");
+        } else {
+            Object[] dados = {tabelaUsuario.getValueAt(i, 0), tabelaUsuario.getValueAt(i, 1), tabelaUsuario.getValueAt(i, 2), tabelaUsuario.getValueAt(i, 3)};
+            alterarGUI.gerarTabela(campos, dados);
+            alterarGUI.setVisible(true);
         }
-        Object[] dados = {tabelaUsuario.getValueAt(i, 0), tabelaUsuario.getValueAt(i, 1), tabelaUsuario.getValueAt(i, 2), tabelaUsuario.getValueAt(i, 3)};
-        alterarGUI.gerarTabela(campos, dados);
-        alterarGUI.setVisible(true);
     }//GEN-LAST:event_botao_alterarUsuarioActionPerformed
 
     private void botao_cadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_cadastrarProfessorActionPerformed
@@ -828,11 +829,12 @@ public class AdminViewGUI extends javax.swing.JFrame {
         int i = tabelaDisciplina.getSelectedRow();
         if (i < 0) {
             JOptionPane.showMessageDialog(Painel, "Nenhuma linha selecionada!");
+        } else {
+            Object[] dados = {tabelaDisciplina.getValueAt(i, 0), tabelaDisciplina.getValueAt(i, 1), tabelaDisciplina.getValueAt(i, 2)};
+            alterarDisciplinaGUI.gerarTabela(campos, dados);
+            alterarDisciplinaGUI.setVisible(true);
+            tabelaDisciplina.setModel(gerarModeloTabelaDisciplina());
         }
-        Object[] dados = {tabelaDisciplina.getValueAt(i, 0), tabelaDisciplina.getValueAt(i, 1), tabelaDisciplina.getValueAt(i, 2)};
-        alterarDisciplinaGUI.gerarTabela(campos, dados);
-        alterarDisciplinaGUI.setVisible(true);
-        tabelaDisciplina.setModel(gerarModeloTabelaDisciplina());
     }//GEN-LAST:event_botao_AlterarDisciplinaActionPerformed
 
     private void botao_atualizarTabelaDisciplina1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_atualizarTabelaDisciplina1ActionPerformed
@@ -935,12 +937,11 @@ public class AdminViewGUI extends javax.swing.JFrame {
         int i = tabelaTurmas.getSelectedRow();
         if (i < 0) {
             JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada!");
+        } else {
+            AlterarTurmaGUI alterarTurmaGUI = new AlterarTurmaGUI();
+            alterarTurmaGUI.receberDados(tabelaTurmas.getValueAt(i, 0).toString(), tabelaTurmas.getValueAt(i, 1).toString(), tabelaTurmas.getValueAt(i, 2).toString(), tabelaTurmas.getValueAt(i, 3).toString(), tabelaTurmas.getValueAt(i, 4).toString(), tabelaTurmas.getValueAt(i, 5).toString(), gerarModeloTabelaProfessoresNaoVinculados(), gerarModeloTabelaDisciplina());
+            alterarTurmaGUI.setVisible(true);
         }
-
-        AlterarTurmaGUI alterarTurmaGUI = new AlterarTurmaGUI();
-        alterarTurmaGUI.receberDados(tabelaTurmas.getValueAt(i, 0).toString(),tabelaTurmas.getValueAt(i, 1).toString() , tabelaTurmas.getValueAt(i, 2).toString(), tabelaTurmas.getValueAt(i, 3).toString(), tabelaTurmas.getValueAt(i, 4).toString(), tabelaTurmas.getValueAt(i, 5).toString(),gerarModeloTabelaProfessoresNaoVinculados(),gerarModeloTabelaDisciplina());
-        alterarTurmaGUI.setVisible(true);
-        
     }//GEN-LAST:event_botao_alterarTurma1ActionPerformed
 
     private void botao_excluirTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_excluirTurmaActionPerformed
@@ -963,17 +964,17 @@ public class AdminViewGUI extends javax.swing.JFrame {
         gerarTabelaTurmas();
     }//GEN-LAST:event_botao_atualizarTabelaTurmaActionPerformed
 
-    private void botao_atualizarTabelaTurma1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_atualizarTabelaTurma1ActionPerformed
+    private void botao_VincularAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_VincularAlunosActionPerformed
         // TODO add your handling code here:
-         int i = tabelaTurmas.getSelectedRow();
+        int i = tabelaTurmas.getSelectedRow();
         if (i < 0) {
             JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada!");
         }
         VincularAlunosGUI vincularAlunosGUI = new VincularAlunosGUI();
         vincularAlunosGUI.receberDados(tabelaTurmas.getValueAt(i, 0).toString(), tabelaTurmas.getValueAt(i, 1).toString());
         vincularAlunosGUI.setVisible(true);
-        
-    }//GEN-LAST:event_botao_atualizarTabelaTurma1ActionPerformed
+
+    }//GEN-LAST:event_botao_VincularAlunosActionPerformed
     public void setNomeDisciplinaVinculada(String texto) {
         text_vincularNomeDisciplina.setText(texto);
     }
@@ -1069,11 +1070,11 @@ public class AdminViewGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Painel;
     private javax.swing.JButton botao_AlterarDisciplina;
+    private javax.swing.JButton botao_VincularAlunos;
     private javax.swing.JButton botao_alterarTurma1;
     private javax.swing.JButton botao_alterarUsuario;
     private javax.swing.JButton botao_atualizarTabelaDisciplina1;
     private javax.swing.JButton botao_atualizarTabelaTurma;
-    private javax.swing.JButton botao_atualizarTabelaTurma1;
     private javax.swing.JButton botao_atualizarTabelaUsuario;
     private javax.swing.JButton botao_cadastrarProfessor;
     private javax.swing.JButton botao_cadastrarUsuario;

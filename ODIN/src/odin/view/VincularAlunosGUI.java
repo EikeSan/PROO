@@ -46,6 +46,7 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
         botao_cancelarVincularAluno = new javax.swing.JButton();
         botao_vincularAluno = new javax.swing.JButton();
         botao_desvincularAluno = new javax.swing.JButton();
+        botao_vincularAlunoAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -116,6 +117,14 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
             }
         });
 
+        botao_vincularAlunoAtualizar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        botao_vincularAlunoAtualizar.setText("Atualizar tabelas");
+        botao_vincularAlunoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_vincularAlunoAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,8 +143,11 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(botao_desvincularAluno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botao_vincularAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(botao_cancelarVincularAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(botao_cancelarVincularAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(botao_vincularAlunoAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -167,6 +179,8 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
                         .addComponent(botao_vincularAluno)
                         .addGap(18, 18, 18)
                         .addComponent(botao_desvincularAluno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botao_vincularAlunoAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botao_cancelarVincularAluno)
                         .addGap(41, 41, 41))))
@@ -199,11 +213,11 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
         if (i < 0) {
             JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada!");
         } else {
-            try{
-            alunoDAO.desvincularAluno(Integer.parseInt(tabelaAlunosVinculados.getValueAt(i, 0).toString()), Integer.parseInt(text_vincularAlunoCodigoTurma.getText()));
-            gerarTabelaAlunosVinculados(i);
-            } catch(SQLException e){
-                JOptionPane.showMessageDialog(null, "Erro "+e.getMessage());
+            try {
+                alunoDAO.desvincularAluno(Integer.parseInt(tabelaAlunosVinculados.getValueAt(i, 0).toString()), Integer.parseInt(text_vincularAlunoCodigoTurma.getText()));
+                gerarTabelaAlunosVinculados(Integer.parseInt(text_vincularAlunoCodigoTurma.getText()));
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro " + e.getMessage());
             }
         }
     }//GEN-LAST:event_botao_desvincularAlunoActionPerformed
@@ -212,6 +226,7 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             gerarTabelaAlunosNaoVinculados();
+            gerarTabelaAlunosVinculados(Integer.parseInt(text_vincularAlunoCodigoTurma.getText()));
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher tabela de alunos não vinculados ");
         }
@@ -222,6 +237,16 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_botao_cancelarVincularAlunoActionPerformed
 
+    private void botao_vincularAlunoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_vincularAlunoAtualizarActionPerformed
+        // TODO add your handling code here:
+        try{
+        gerarTabelaAlunosNaoVinculados();
+        gerarTabelaAlunosVinculados(Integer.parseInt(text_vincularAlunoCodigoTurma.getText()));
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERRO "+e.getMessage());
+        }
+    }//GEN-LAST:event_botao_vincularAlunoAtualizarActionPerformed
+
     public void gerarTabelaAlunosVinculados(int codDisciplina) throws SQLException {
         String[] colunas = {"Codigo", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
         DefaultTableModel modelo = new DefaultTableModel(null, colunas);
@@ -231,10 +256,26 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
         dadosRecebidos = alunoDAO.listarAlunosPorDisciplina(codDisciplina);
 
         for (Aluno novosAlunos : dadosRecebidos) {
-            modelo.addRow(new Object[]{novosAlunos.getCodigoUsuario(), novosAlunos.getNomeUsuario(), novosAlunos.getNota1(), novosAlunos.getNota2(), novosAlunos.getNotaFinal(), novosAlunos.getFaltas()});
+            modelo.addRow(new Object[]{novosAlunos.getCodigo_aluno(), novosAlunos.getNomeUsuario(), novosAlunos.getNota1(), novosAlunos.getNota2(), novosAlunos.getNotaFinal(), novosAlunos.getFaltas()});
         }
         tabelaAlunosVinculados.setModel(modelo);
 
+    }
+
+    public boolean isVinculado(int codigoAluno) throws SQLException {
+        boolean isAchou = false;
+        ArrayList<Aluno> dadosRecebidos = new ArrayList();
+        AlunoDAO alunoDAO = new AlunoDAO();
+
+        dadosRecebidos = alunoDAO.listarAlunosPorDisciplina(Integer.parseInt(text_vincularAlunoCodigoTurma.getText()));
+        
+        for (Aluno novosAlunos : dadosRecebidos) {
+            if (novosAlunos.getCodigo_aluno() == codigoAluno) {
+                isAchou = true;
+                break;
+            }
+        }
+        return isAchou;
     }
 
     public void gerarTabelaAlunosNaoVinculados() throws SQLException {
@@ -244,7 +285,9 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
         AlunoDAO alunoDAO = new AlunoDAO();
         dadosRecebidos = alunoDAO.listarAlunos();
         for (Aluno novosAlunos : dadosRecebidos) {
-            modelo.addRow(new Object[]{novosAlunos.getCodigo_aluno(), novosAlunos.getNomeUsuario(), novosAlunos.getCPFUsuario()});
+            if (!isVinculado(novosAlunos.getCodigo_aluno())) {
+                modelo.addRow(new Object[]{novosAlunos.getCodigo_aluno(), novosAlunos.getNomeUsuario(), novosAlunos.getCPFUsuario()});
+            }
         }
         tabelaAlunosNaoVinculados.setModel(modelo);
     }
@@ -293,6 +336,7 @@ public class VincularAlunosGUI extends javax.swing.JFrame {
     private javax.swing.JButton botao_cancelarVincularAluno;
     private javax.swing.JButton botao_desvincularAluno;
     private javax.swing.JButton botao_vincularAluno;
+    private javax.swing.JButton botao_vincularAlunoAtualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

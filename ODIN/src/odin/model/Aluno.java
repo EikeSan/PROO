@@ -53,7 +53,7 @@ public class Aluno extends Usuario {
     }
 
     public int getCodigo_aluno() {
-        return codigoAluno;
+        return this.codigoAluno;
     }
     
 }
