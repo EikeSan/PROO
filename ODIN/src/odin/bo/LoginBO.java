@@ -29,8 +29,8 @@ public class LoginBO {
             return "Usuario e/ou senha não informados!";
         } else if (nomeUsuario == "" || senhaUsuario == "") {
             return "Usuario e/ou senha não informados!";
-        } else if (nomeUsuario.length() < 5 || nomeUsuario.length() > 12) {
-            return "O nome do usuário deve conter mais que 6 e menos 12 caracteres";
+        } else if (senhaUsuario.length() < 5 || senhaUsuario.length() > 12) {
+            return "A senha do usuário deve conter mais que 5 e menos 12 caracteres";
         }
 
         usuarioDAO = new UsuarioDAO();
@@ -63,6 +63,7 @@ public class LoginBO {
             case "Professor": {
                 professorView.setVisible(true);
                 String cpf = usuarioDAO.consultar(nomeUsuario);
+                professorView.setComboBox(cpf);
                 break;
             }
             default: {

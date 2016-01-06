@@ -5,6 +5,16 @@
  */
 package odin.view;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import odin.dao.*;
+import odin.model.*;
+
 /**
  *
  * @author Eike
@@ -16,6 +26,7 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
      */
     public ProfessorViewGUI() {
         initComponents();
+        cmbCodTurma.setVisible(false);
     }
 
     /**
@@ -31,6 +42,7 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
         tblAlunoPorDisciplina = new javax.swing.JTable();
         cmbTurmas = new javax.swing.JComboBox();
         btnSelecionarTurma = new javax.swing.JButton();
+        cmbCodTurma = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,11 +51,11 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"
+                "Codigo", "Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -60,6 +72,13 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
         });
 
         btnSelecionarTurma.setText("Selecionar");
+        btnSelecionarTurma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarTurmaActionPerformed(evt);
+            }
+        });
+
+        cmbCodTurma.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,24 +87,34 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnSelecionarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnSelecionarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cmbCodTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41))
+                    .addComponent(cmbCodTurma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSelecionarTurma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(55, 55, 55))
+                .addGap(61, 61, 61))
         );
 
         pack();
@@ -95,6 +124,48 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTurmasActionPerformed
 
+    private void btnSelecionarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarTurmaActionPerformed
+        // TODO add your handling code here:
+       int index =cmbTurmas.getSelectedIndex();
+       cmbCodTurma.setSelectedIndex(index);
+       String nome = cmbCodTurma.getSelectedItem().toString();
+       int codigo = Integer.parseInt(nome);
+        try {
+            gerarTabelaAlunos(codigo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfessorViewGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSelecionarTurmaActionPerformed
+    public void setComboBox(String cpf) throws SQLException{
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        DefaultComboBoxModel modelo2 = new DefaultComboBoxModel();
+        ArrayList<Turma> turma = new ArrayList<>();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        
+        turma = usuarioDAO.listarTurmaPorProfessor(cpf);
+        for (Turma dadosTurma : turma) {
+            modelo.addElement(dadosTurma.getNomeTurma());
+            modelo2.addElement(dadosTurma.getCodigoTurma());
+        }
+        cmbTurmas.setModel(modelo);
+        cmbCodTurma.setModel(modelo2);
+        
+    }
+    
+    public void gerarTabelaAlunos(int codDisciplina) throws SQLException{
+        String[] colunas = {"Codigo","Aluno", "Nota AV1", "Nota AV2", "Média", "Faltas"};
+        DefaultTableModel modelo = new DefaultTableModel(null, colunas);
+        ArrayList<Aluno> dadosRecebidos = new ArrayList();
+        AlunoDAO alunoDAO = new AlunoDAO();
+        
+        dadosRecebidos = alunoDAO.listarAlunosPorDisciplina(codDisciplina);
+      
+        for (Aluno novosAlunos : dadosRecebidos) {
+            modelo.addRow(new Object[]{novosAlunos.getCodigoUsuario(),novosAlunos.getNomeUsuario(),novosAlunos.getNota1(),novosAlunos.getNota2(),novosAlunos.getNotaFinal(),novosAlunos.getFaltas()});
+        }
+        tblAlunoPorDisciplina.setModel(modelo);
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -132,6 +203,7 @@ public class ProfessorViewGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelecionarTurma;
+    private javax.swing.JComboBox cmbCodTurma;
     private javax.swing.JComboBox cmbTurmas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAlunoPorDisciplina;

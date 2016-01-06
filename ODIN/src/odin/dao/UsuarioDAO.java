@@ -197,7 +197,7 @@ public class UsuarioDAO {
         }
     }
 
-    public ArrayList<Turma> listarTurmas() throws SQLException{
+    public ArrayList<Turma> listarTurmas() throws SQLException {
         ResultSet rs;
         PreparedStatement pstm;
         ArrayList<Turma> listaTurmas = new ArrayList();
@@ -210,14 +210,14 @@ public class UsuarioDAO {
                     + "inner join usuario as u on u.cpf = p.cpf");
             rs = pstm.executeQuery();
             while (rs.next()) {
-               Turma turma = new Turma();
-               turma.setCodigoDisciplina(Integer.parseInt(rs.getString("codigo_disciplina")));
-               turma.setCodigoProfessor(Integer.parseInt(rs.getString("codigo_professor")));
-               turma.setCodigoTurma(Integer.parseInt(rs.getString("codigo_turma")));
-               turma.setNomeDisciplina(rs.getString("nome_disciplina"));
-               turma.setNomeProfessor(rs.getString("nome"));
-               turma.setNomeTurma(rs.getString("nome_turma"));
-               listaTurmas.add(turma);
+                Turma turma = new Turma();
+                turma.setCodigoDisciplina(Integer.parseInt(rs.getString("codigo_disciplina")));
+                turma.setCodigoProfessor(Integer.parseInt(rs.getString("codigo_professor")));
+                turma.setCodigoTurma(Integer.parseInt(rs.getString("codigo_turma")));
+                turma.setNomeDisciplina(rs.getString("nome_disciplina"));
+                turma.setNomeProfessor(rs.getString("nome"));
+                turma.setNomeTurma(rs.getString("nome_turma"));
+                listaTurmas.add(turma);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar turmas" + e.getMessage());
@@ -304,6 +304,31 @@ public class UsuarioDAO {
             return listaUsuarios;
         } catch (SQLException e) {
             throw new SQLException("Erro listar usuários - " + e.getMessage());
+        }
+    }
+
+    public ArrayList<Turma> listarTurmaPorProfessor(String cpfProfessor) throws SQLException {
+        ResultSet rs;
+        PreparedStatement pstm;
+        ArrayList<Turma> listaTurmas = new ArrayList<>();
+
+        try {
+            pstm = conexaoMySQL().prepareStatement("SELECT dp.codigo_disciplina, dp.codigo_professor, dp.codigo_turma,d.nome_disciplina,u.nome, t.nome_turma FROM disciplina_por_professor dp inner join professor p on p.codigo_professor = dp.codigo_professor inner JOIN usuario u on u.cpf = p.cpf inner JOIN turma t on t.codigo_turma = dp.codigo_turma inner join disciplina d on d.codigo_disciplina = dp.codigo_disciplina where p.cpf = " + cpfProfessor);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                Turma turma = new Turma();
+                turma.setCodigoDisciplina(Integer.parseInt(rs.getString("codigo_disciplina")));
+                turma.setCodigoProfessor(Integer.parseInt(rs.getString("codigo_professor")));
+                turma.setCodigoTurma(Integer.parseInt(rs.getString("codigo_turma")));
+                turma.setNomeDisciplina(rs.getString("nome_disciplina"));
+                turma.setNomeProfessor(rs.getString("nome"));
+                turma.setNomeTurma(rs.getString("nome_turma"));
+                listaTurmas.add(turma);
+            }
+            return listaTurmas;
+
+        } catch (SQLException e) {
+            throw new SQLException("Erro ao criar lista de alunos - " + e.getMessage());
         }
     }
 }

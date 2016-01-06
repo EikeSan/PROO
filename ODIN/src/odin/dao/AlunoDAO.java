@@ -34,15 +34,15 @@ public class AlunoDAO {
         ArrayList<Aluno> listaAlunos = new ArrayList<>();
         
         try {
-            pstm = conexaoMySQL().prepareStatement("SELECT ap.codigo_aluno,u.nome, ap.nota_1, ap.nota_2,ap.nota_final, ap.faltas FROM aluno_por_turma ap inner join aluno a on a.codigo_aluno = ap.codigo_aluno inner JOIN usuario u on u.cpf = a.cpf where ap.codigo_turma =  " + codigoTurma);
+            pstm = conexaoMySQL().prepareStatement("SELECT ap.codigo_aluno,u.nome, ap.nota_1, ap.nota_2,ap.nota_final, ap.faltas FROM aluno_por_turma ap inner join aluno a on a.codigo_aluno = ap.codigo_aluno inner JOIN usuario u on u.cpf = a.cpf where ap.codigo_turma =  " + codigoTurma+" order by u.nome");
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Aluno aluno = new Aluno();
                 aluno.setCodigoUsuario(Integer.parseInt(rs.getString("codigo_aluno")));
                 aluno.setNomeUsuario(rs.getString("nome"));
-                aluno.setNota1(Integer.parseInt(rs.getString("nota_1")));
-                aluno.setNota2(Integer.parseInt(rs.getString("nota_2")));
-                aluno.setNotaFinal(Integer.parseInt(rs.getString("nota_final")));
+                aluno.setNota1(Double.parseDouble(rs.getString("nota_1")));
+                aluno.setNota2(Double.parseDouble(rs.getString("nota_2")));
+                aluno.setNotaFinal(Double.parseDouble(rs.getString("nota_final")));
                 aluno.setFaltas(Integer.parseInt(rs.getString("faltas")));
                 listaAlunos.add(aluno);
             }
