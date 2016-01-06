@@ -149,7 +149,7 @@ public class UsuarioDAOTest extends TestCase {
             conexao.rollback();
         }
     }
-    @Test public void testDeveriaDesvincularProfessor()throws Exception{
+    /*@Test public void testDeveriaDesvincularProfessor()throws Exception{
         try{
             conexao.setAutoCommit(false);
             Statement stmt = conexao.createStatement();
@@ -164,7 +164,7 @@ public class UsuarioDAOTest extends TestCase {
         }finally {
             conexao.rollback();
         }
-    }
+    }*/
 
     /*@Test
         public void testDeveriaRetornarUltimoCodigoTurma() throws Exception{

@@ -94,6 +94,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
         botao_excluirTurma = new javax.swing.JButton();
         botao_alterarTurma1 = new javax.swing.JButton();
         botao_atualizarTabelaTurma = new javax.swing.JButton();
+        botao_atualizarTabelaTurma1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Logado como: Administrador");
@@ -644,30 +645,41 @@ public class AdminViewGUI extends javax.swing.JFrame {
             }
         });
 
+        botao_atualizarTabelaTurma1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        botao_atualizarTabelaTurma1.setText("Vincular Alunos");
+        botao_atualizarTabelaTurma1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_atualizarTabelaTurma1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 105, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(botao_atualizarTabelaTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 47, Short.MAX_VALUE))
+                    .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botao_atualizarTabelaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botao_atualizarTabelaTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Turmas cadastradas", jPanel6);
@@ -950,6 +962,18 @@ public class AdminViewGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         gerarTabelaTurmas();
     }//GEN-LAST:event_botao_atualizarTabelaTurmaActionPerformed
+
+    private void botao_atualizarTabelaTurma1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_atualizarTabelaTurma1ActionPerformed
+        // TODO add your handling code here:
+         int i = tabelaTurmas.getSelectedRow();
+        if (i < 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada!");
+        }
+        VincularAlunosGUI vincularAlunosGUI = new VincularAlunosGUI();
+        vincularAlunosGUI.receberDados(tabelaTurmas.getValueAt(i, 0).toString(), tabelaTurmas.getValueAt(i, 1).toString());
+        vincularAlunosGUI.setVisible(true);
+        
+    }//GEN-LAST:event_botao_atualizarTabelaTurma1ActionPerformed
     public void setNomeDisciplinaVinculada(String texto) {
         text_vincularNomeDisciplina.setText(texto);
     }
@@ -1049,6 +1073,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
     private javax.swing.JButton botao_alterarUsuario;
     private javax.swing.JButton botao_atualizarTabelaDisciplina1;
     private javax.swing.JButton botao_atualizarTabelaTurma;
+    private javax.swing.JButton botao_atualizarTabelaTurma1;
     private javax.swing.JButton botao_atualizarTabelaUsuario;
     private javax.swing.JButton botao_cadastrarProfessor;
     private javax.swing.JButton botao_cadastrarUsuario;

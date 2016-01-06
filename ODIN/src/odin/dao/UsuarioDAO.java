@@ -250,15 +250,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void desvincularProfessor(int codigoProfessor, int codigoDisciplina) throws SQLException {
-        Statement stmt;
-        try {
-            stmt = conexaoMySQL().createStatement();
-            stmt.executeUpdate("DELETE FROM disciplina_por_professor WHERE codigo_professor = " + codigoProfessor + " and codigo_disciplina = " + codigoDisciplina);
-        } catch (SQLException e) {
-            throw new SQLException("Erro ao excluir usuário -" + e.getMessage());
-        }
-    }
+   
 
     public ArrayList<Professor> listarProfessores() throws SQLException {
         ResultSet rs;

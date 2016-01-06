@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 05-Jan-2016 às 00:36
+-- Generation Time: 06-Jan-2016 às 17:30
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -19,6 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `odin`
 --
+
 DELIMITER $$
 --
 -- Procedures
@@ -32,6 +33,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InserirTipoUsuario` (IN `tipo` V
 END$$
 
 DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -46,14 +48,14 @@ CREATE TABLE `aluno` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `aluno_por_disciplina`
+-- Estrutura da tabela `aluno_por_turma`
 --
 
 CREATE TABLE `aluno_por_turma` (
-  `nota_final` decimal(4,2) DEFAULT NULL,
-  `nota_2` decimal(4,2) DEFAULT NULL,
-  `faltas` int(11) DEFAULT NULL,
-  `nota_1` decimal(4,2) DEFAULT NULL,
+  `nota_final` decimal(4,2) DEFAULT '0.00',
+  `nota_2` decimal(4,2) DEFAULT '0.00',
+  `faltas` int(11) DEFAULT '0',
+  `nota_1` decimal(4,2) DEFAULT '0.00',
   `codigo_aluno` int(11) DEFAULT NULL,
   `codigo_turma` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -117,11 +119,12 @@ CREATE TABLE `usuario` (
   `senha` varchar(16) DEFAULT NULL,
   `tipo_usuario` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`cpf`, `usuario`, `nome`, `senha`, `tipo_usuario`) VALUES
+INSERT INTO `usuario` (`cpf`, `nome`, `usuario`, `senha`, `tipo_usuario`) VALUES
 ('000', 'admin', 'admin', 'admin', 'admin');
 
 --
@@ -133,6 +136,7 @@ CREATE TRIGGER `trg_entradaUsuario` AFTER INSERT ON `usuario` FOR EACH ROW BEGIN
 end
 $$
 DELIMITER ;
+
 --
 -- Indexes for dumped tables
 --
@@ -150,7 +154,7 @@ ALTER TABLE `aluno`
 ALTER TABLE `aluno_por_turma`
   ADD KEY `codigo_aluno` (`codigo_aluno`),
   ADD KEY `codigo_turma` (`codigo_turma`);
-  
+
 --
 -- Indexes for table `disciplina`
 --
@@ -203,13 +207,14 @@ ALTER TABLE `disciplina`
 --
 ALTER TABLE `professor`
   MODIFY `codigo_professor` int(11) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT for table `turma`
+--
 ALTER TABLE `turma`
-  MODIFY `codigo_turma` int(11) not null AUTO_INCREMENT;
- --
+  MODIFY `codigo_turma` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- Constraints for dumped tables
 --
-
 
 --
 -- Limitadores para a tabela `aluno`
@@ -218,12 +223,12 @@ ALTER TABLE `aluno`
   ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`cpf`) REFERENCES `usuario` (`cpf`) ON DELETE CASCADE;
 
 --
--- Limitadores para a tabela `aluno_por_disciplina`
+-- Limitadores para a tabela `aluno_por_turma`
 --
-ALTER TABLE `aluno_por_disciplina`
-  ADD CONSTRAINT `aluno_por_disciplina_ibfk_1` FOREIGN KEY (`codigo_aluno`) REFERENCES `aluno` (`codigo_aluno`) ON DELETE CASCADE,
-  ADD CONSTRAINT `aluno_por_disciplina_ibfk_2` FOREIGN KEY (`codigo_turma`) REFERENCES `turma` (`codigo_turma`) ON DELETE CASCADE;
-  
+ALTER TABLE `aluno_por_turma`
+  ADD CONSTRAINT `aluno_por_turma_ibfk_1` FOREIGN KEY (`codigo_aluno`) REFERENCES `aluno` (`codigo_aluno`) ON DELETE CASCADE,
+  ADD CONSTRAINT `aluno_por_turma_ibfk_2` FOREIGN KEY (`codigo_turma`) REFERENCES `turma` (`codigo_turma`) ON DELETE CASCADE;
+
 --
 -- Limitadores para a tabela `disciplina_por_professor`
 --

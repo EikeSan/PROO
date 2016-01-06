@@ -65,14 +65,7 @@ public class UsuarioBO {
         listaProfessores = usuarioDAO.listarProfessoresVinculadosPorDisciplina(codigoDisciplina);
         return listaProfessores;
     }
-    public void desvincularProfessor(int codigoProfessor,int codigoDisciplina){
-        usuarioDAO = new UsuarioDAO();
-        try{
-        usuarioDAO.desvincularProfessor(codigoProfessor, codigoDisciplina);
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro ao desvincular professor: "+e.getMessage());
-        }
-    }
+  
     
     public void excluirUsuario(String cpf) throws SQLException {
         usuarioDAO = new UsuarioDAO();
