@@ -88,6 +88,11 @@ public class AdminViewGUI extends javax.swing.JFrame {
         text_vincularNomeProfessor = new javax.swing.JTextField();
         text_vincularCodigoProfessor = new javax.swing.JTextField();
         botao_novaTurma = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tabelaTurmas = new javax.swing.JTable();
+        botao_excluirTurma = new javax.swing.JButton();
+        botao_alterarTurma1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Logado como: Administrador");
@@ -211,7 +216,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                             .addComponent(text_nomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(text_loginUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(text_cpfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +245,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tipo_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botao_cadastrarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         Painel.addTab("Cadastro", jPanel1);
@@ -371,7 +376,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nomeDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botao_cadastrarProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -393,7 +398,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                         .addComponent(cargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(50, 50, 50)
                 .addComponent(botao_cadastrarProfessor)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         jTabbedPane6.addTab("Cadastro", jPanel3);
@@ -447,7 +452,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                 .addComponent(botao_AlterarDisciplina)
                 .addGap(26, 26, 26)
                 .addComponent(botao_excluirDisciplina)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(262, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,7 +463,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                     .addComponent(botao_atualizarTabelaDisciplina1)
                     .addComponent(botao_excluirDisciplina)
                     .addComponent(botao_AlterarDisciplina))
-                .addGap(0, 64, Short.MAX_VALUE))
+                .addGap(0, 86, Short.MAX_VALUE))
         );
 
         jTabbedPane6.addTab("Disciplinas cadastradas", jPanel4);
@@ -549,7 +554,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
                 .addComponent(text_nomeTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botao_novaTurma)
-                .addGap(0, 41, Short.MAX_VALUE))
+                .addGap(0, 61, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -596,10 +601,59 @@ public class AdminViewGUI extends javax.swing.JFrame {
                             .addComponent(botao_vincularDisciplina1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastro", jPanel5);
+
+        tabelaTurmas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane6.setViewportView(tabelaTurmas);
+
+        botao_excluirTurma.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        botao_excluirTurma.setText("Excluir");
+
+        botao_alterarTurma1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        botao_alterarTurma1.setText("Alterar");
+        botao_alterarTurma1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_alterarTurma1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(128, Short.MAX_VALUE)
+                .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93)
+                .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(189, 189, 189))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botao_excluirTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botao_alterarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 47, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Turmas cadastradas", jPanel6);
 
         jTabbedPane5.addTab("Turmas", jTabbedPane1);
 
@@ -607,17 +661,11 @@ public class AdminViewGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 820, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 428, Short.MAX_VALUE)
         );
 
         pack();
@@ -755,12 +803,12 @@ public class AdminViewGUI extends javax.swing.JFrame {
         Object[] dados = {tabelaDisciplina.getValueAt(i, 0), tabelaDisciplina.getValueAt(i, 1), tabelaDisciplina.getValueAt(i, 2)};
         alterarDisciplinaGUI.gerarTabela(campos, dados);
         alterarDisciplinaGUI.setVisible(true);
-        gerarTabelaDisciplina();
+        tabelaDisciplina.setModel(gerarModeloTabelaDisciplina());
     }//GEN-LAST:event_botao_AlterarDisciplinaActionPerformed
 
     private void botao_atualizarTabelaDisciplina1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_atualizarTabelaDisciplina1ActionPerformed
         // TODO add your handling code here:
-        gerarTabelaDisciplina();
+        tabelaDisciplina.setModel(gerarModeloTabelaDisciplina());
     }//GEN-LAST:event_botao_atualizarTabelaDisciplina1ActionPerformed
 
     private void botao_excluirDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_excluirDisciplinaActionPerformed
@@ -776,7 +824,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
             int codigo = Integer.parseInt(tabelaDisciplina.getValueAt(i, 0).toString());
             try {
                 disciplinaBO.excluirDisciplina(codigo);
-                gerarTabelaDisciplina();
+                tabelaDisciplina.setModel(gerarModeloTabelaDisciplina());
                 JOptionPane.showMessageDialog(Painel, "Disciplina deletada com sucesso!");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(Painel, "Erro ao deletar disciplina");
@@ -787,7 +835,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
 
     private void jTabbedPane6StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane6StateChanged
         // TODO add your handling code here:
-        gerarTabelaDisciplina();
+        tabelaDisciplina.setModel(gerarModeloTabelaDisciplina());
     }//GEN-LAST:event_jTabbedPane6StateChanged
 
     private void botao_vincularDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_vincularDisciplinaActionPerformed
@@ -834,9 +882,36 @@ public class AdminViewGUI extends javax.swing.JFrame {
 
     private void jTabbedPane5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane5StateChanged
         // TODO add your handling code here:
-        gerarTabelaDisciplina();
-        gerarTabelaProfessoresNaoVinculados();
+        tabelaVincularDisciplina.setModel(gerarModeloTabelaDisciplina());
+        tabelaVincularProfessor.setModel(gerarModeloTabelaProfessoresNaoVinculados());
+        gerarTabelaTurmas();
     }//GEN-LAST:event_jTabbedPane5StateChanged
+    public void gerarTabelaTurmas(){
+        String[] nomesColunas = {"Código da turma", "Nome da turma","Código da disciplina","Nome da disciplina","Código do professor","Professor"};
+        DefaultTableModel model = new DefaultTableModel(null, nomesColunas);
+        ArrayList<Turma> dadosRecebidos = new ArrayList();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        try{
+            dadosRecebidos = usuarioDAO.listarTurmas();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"Erro ao preencher tabela"+ e.getMessage());
+        }
+        for (Turma novosDados : dadosRecebidos){
+             model.addRow(new Object[]{novosDados.getCodigoTurma(),novosDados.getNomeTurma(),novosDados.getCodigoDisciplina(),novosDados.getNomeDisciplina(),novosDados.getCodigoProfessor(),novosDados.getNomeProfessor()});
+        }
+        tabelaTurmas.setModel(model);
+    }
+    private void botao_alterarTurma1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_alterarTurma1ActionPerformed
+        // TODO add your handling code here:
+        int i = tabelaTurmas.getSelectedRow();
+        if (i < 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada!");
+        }
+        
+        AlterarTurmaGUI alterarTurmaGUI = new AlterarTurmaGUI();
+        alterarTurmaGUI.setVisible(true);
+        //alterarTurmaGUI.receberDados(tabelaTurmas.getValueAt(i, i), null, null, null, null, null, null, null);
+    }//GEN-LAST:event_botao_alterarTurma1ActionPerformed
     public void setNomeDisciplinaVinculada(String texto) {
         text_vincularNomeDisciplina.setText(texto);
     }
@@ -845,7 +920,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
         text_vincularCodigoDisciplina.setText(codigo);
     }
 
-    public void gerarTabelaDisciplina() {
+    public DefaultTableModel gerarModeloTabelaDisciplina() {
         String[] nomesColunas = {"Código da disciplina", "Nome da disciplina", "Carga horária"};
         DefaultTableModel model = new DefaultTableModel(null, nomesColunas);
         ArrayList<Disciplina> listaDisciplinas = new ArrayList<>();
@@ -859,8 +934,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
         for (Disciplina novaLista : listaDisciplinas) {
             model.addRow(new Object[]{novaLista.getCodigo(), novaLista.getNomeDisciplina(), novaLista.getCargaHoraria()});
         }
-        tabelaDisciplina.setModel(model);
-        tabelaVincularDisciplina.setModel(model);
+        return model;
     }
 
     public void gerarTabelaUsuario() {
@@ -881,7 +955,7 @@ public class AdminViewGUI extends javax.swing.JFrame {
 
     
 
-    public void gerarTabelaProfessoresNaoVinculados() {
+    public DefaultTableModel gerarModeloTabelaProfessoresNaoVinculados() {
         String[] nomesColunas = {"Código do professor", "Nome do professor"};
         DefaultTableModel model = new DefaultTableModel(null, nomesColunas);
         ArrayList<Professor> listaProfessores = new ArrayList<>();
@@ -892,13 +966,9 @@ public class AdminViewGUI extends javax.swing.JFrame {
             Logger.getLogger(AdminViewGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         for (Professor novaLista : listaProfessores) {
-            //if (!text_vincularCodigoProfessor.getText().equals("")) {
-                //if (novaLista.getCodigoProfessor() != Integer.parseInt(text_vincularCodigoProfessor.getText())) {
                     model.addRow(new Object[]{novaLista.getCodigoProfessor(), novaLista.getNomeUsuario()});
-                //}
-            //}
-        }
-        tabelaVincularProfessor.setModel(model);
+             }
+        return model;
     }
 
     /**
@@ -939,12 +1009,14 @@ public class AdminViewGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Painel;
     private javax.swing.JButton botao_AlterarDisciplina;
+    private javax.swing.JButton botao_alterarTurma1;
     private javax.swing.JButton botao_alterarUsuario;
     private javax.swing.JButton botao_atualizarTabelaDisciplina1;
     private javax.swing.JButton botao_atualizarTabelaUsuario;
     private javax.swing.JButton botao_cadastrarProfessor;
     private javax.swing.JButton botao_cadastrarUsuario;
     private javax.swing.JButton botao_excluirDisciplina;
+    private javax.swing.JButton botao_excluirTurma;
     private javax.swing.JButton botao_excluirUsuario;
     private javax.swing.JButton botao_novaTurma;
     private javax.swing.JButton botao_vincularDisciplina;
@@ -963,16 +1035,19 @@ public class AdminViewGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTabbedPane jTabbedPane6;
     private javax.swing.JTextField nomeDisciplina;
     private javax.swing.JTable tabelaDisciplina;
+    private javax.swing.JTable tabelaTurmas;
     private javax.swing.JTable tabelaUsuario;
     private javax.swing.JTable tabelaVincularDisciplina;
     private javax.swing.JTable tabelaVincularProfessor;

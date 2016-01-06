@@ -92,11 +92,60 @@ public class UsuarioDAOTest extends TestCase {
             stmt.execute("insert into disciplina(codigo_disciplina,nome_disciplina,carga_horaria) values('1','Química','80')");
             stmt.execute("insert into turma(codigo_turma,nome_turma) values ('1','PROO') ");
             stmt.execute("UPDATE professor SET codigo_professor = 1 WHERE cpf = '1111'");
-            usuarioDAO.vincularProfessorTurma(1, 1,1);
+            usuarioDAO.vincularProfessorPorTurma(1, 1,1);
         }catch (SQLException e){
             assertFalse(e.getMessage(), true);
             throw new SQLException(e.getMessage());
         }finally {
+            conexao.rollback();
+        }
+    }
+    @Test 
+    public void testDeveriaExcluirTurma()throws SQLException{
+        try{
+            conexao.setAutoCommit(false);
+            Statement stmt = conexao.createStatement();
+            stmt.execute("insert into turma(codigo_turma,nome_turma) values('1','PROO')");
+            usuarioDAO.excluirTurma(1);
+        }catch (SQLException e){
+            assertFalse(e.getMessage(), true);
+            throw new SQLException(e.getMessage());
+        }finally {
+            conexao.rollback();
+        }
+    }
+    @Test 
+    public void testDeveriaAlterarProfessorPorTurma() throws SQLException{
+        try{
+            conexao.setAutoCommit(false);
+            Statement stmt = conexao.createStatement();
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('1111','Paulo Guina','Ronilda','1234','Professor')");
+            stmt.execute("INSERT INTO usuario(cpf,nome,usuario,senha,tipo_usuario) values('11111','Paulo','paulo123','1234','Professor')");
+            stmt.execute("insert into disciplina(codigo_disciplina,nome_disciplina,carga_horaria) values('1','Química','80')");
+            stmt.execute("insert into disciplina(codigo_disciplina,nome_disciplina,carga_horaria) values('2','PROO','80')");
+            stmt.execute("insert into turma(codigo_turma,nome_turma) values ('1','PROO') ");
+            stmt.execute("UPDATE professor SET codigo_professor = '1' WHERE cpf = '1111'");
+            stmt.execute("UPDATE professor SET codigo_professor = '2' WHERE cpf = '11111'");
+            stmt.execute("insert into disciplina_por_professor(codigo_disciplina,codigo_professor,codigo_turma) values('1','1','1')");
+            usuarioDAO.alterarProfessorPorTurma(2, 2, 1);
+        }catch(SQLException e){
+           assertFalse(e.getMessage(), true);
+            throw new SQLException(e.getMessage());
+        }finally {
+            conexao.rollback();
+        }
+    }
+    @Test
+    public void testDeveriaAlterarTurma()throws Exception{
+        try{
+            conexao.setAutoCommit(false);
+            Statement stmt = conexao.createStatement();
+            stmt.execute("insert into turma(codigo_turma,nome_turma) values ('1','PROO') ");
+            usuarioDAO.alterarTurma(1,"Proo");
+        }catch (SQLException e){
+            assertFalse(e.getMessage(), true);
+            throw new SQLException(e.getMessage());
+        }finally{
             conexao.rollback();
         }
     }

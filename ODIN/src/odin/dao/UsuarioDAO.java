@@ -106,15 +106,43 @@ public class UsuarioDAO {
         }
     }
 
-
-
-    public void vincularProfessorTurma(int codigo_disciplina, int codigo_professor, int codigo_turma) {
+    public void vincularProfessorPorTurma(int codigo_disciplina, int codigo_professor, int codigo_turma) {
         Statement stmt;
         try {
             stmt = conexaoMySQL().createStatement();
             stmt.execute("insert into disciplina_por_professor(codigo_disciplina,codigo_professor,codigo_turma) values('" + codigo_disciplina + "','" + codigo_professor + "','" + codigo_turma + "')");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao vincular professor:  " + e.getMessage());
+        }
+    }
+
+    public void alterarTurma(int codigoTurma, String nomeTurma) {
+        Statement stmt;
+        try {
+            stmt = conexaoMySQL().createStatement();
+            stmt.execute("update turma set nome_turma = '" + codigoTurma + "'" + "where codigo_turma ='" + codigoTurma + "'");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar turma " + e.getMessage());
+        }
+    }
+
+    public void alterarProfessorPorTurma(int codigoProfessor, int codigoDisciplina, int codigoTurma) {
+        Statement stmt;
+        try {
+            stmt = conexaoMySQL().createStatement();
+            stmt.execute("UPDATE disciplina_por_professor set codigo_professor = '" + codigoProfessor + "', codigo_disciplina ='" + codigoDisciplina + "' where codigo_turma = '" + codigoTurma + "'");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar turma " + e.getMessage());
+        }
+    }
+
+    public void excluirTurma(int codigoTurma) {
+        Statement stmt;
+        try {
+            stmt = conexaoMySQL().createStatement();
+            stmt.execute("delete from turma where codigo_turma = '" + codigoTurma + "'");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir turma:  " + e.getMessage());
         }
     }
 
@@ -136,8 +164,8 @@ public class UsuarioDAO {
             pstm = conexaoMySQL().prepareStatement("select * from turma order by codigo_turma desc limit 1");
             rs = pstm.executeQuery();
             while (rs.next()) {
-                if (!rs.getString("codigo_turma").isEmpty()){
-                codigo = Integer.parseInt(rs.getString("codigo_turma"));
+                if (!rs.getString("codigo_turma").isEmpty()) {
+                    codigo = Integer.parseInt(rs.getString("codigo_turma"));
                 }
             }
         } catch (SQLException e) {
@@ -167,6 +195,34 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             throw new SQLException("Erro listar professores - " + e.getMessage());
         }
+    }
+
+    public ArrayList<Turma> listarTurmas() throws SQLException{
+        ResultSet rs;
+        PreparedStatement pstm;
+        ArrayList<Turma> listaTurmas = new ArrayList();
+        try {
+            pstm = conexaoMySQL().prepareStatement("select dpp.codigo_turma,t.nome_turma,dpp.codigo_disciplina,d.nome_disciplina,dpp.codigo_professor,u.nome \n"
+                    + "from disciplina_por_professor as dpp \n"
+                    + "inner join turma as t on t.codigo_turma = dpp.codigo_turma \n"
+                    + "INNER join disciplina as d on d.codigo_disciplina = dpp.codigo_disciplina \n"
+                    + "inner join professor as p on p.codigo_professor = dpp.codigo_professor \n"
+                    + "inner join usuario as u on u.cpf = p.cpf");
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+               Turma turma = new Turma();
+               turma.setCodigoDisciplina(Integer.parseInt(rs.getString("codigo_disciplina")));
+               turma.setCodigoProfessor(Integer.parseInt(rs.getString("codigo_professor")));
+               turma.setCodigoTurma(Integer.parseInt(rs.getString("codigo_turma")));
+               turma.setNomeDisciplina(rs.getString("nome_disciplina"));
+               turma.setNomeProfessor(rs.getString("nome"));
+               turma.setNomeTurma(rs.getString("nome_turma"));
+               listaTurmas.add(turma);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar turmas" + e.getMessage());
+        }
+        return listaTurmas;
     }
 
     public ArrayList<Professor> listarProfessoresVinculados() throws SQLException {

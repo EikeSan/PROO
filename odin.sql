@@ -49,7 +49,7 @@ CREATE TABLE `aluno` (
 -- Estrutura da tabela `aluno_por_disciplina`
 --
 
-CREATE TABLE `aluno_por_disciplina` (
+CREATE TABLE `aluno_por_turma` (
   `nota_final` decimal(4,2) DEFAULT NULL,
   `nota_2` decimal(4,2) DEFAULT NULL,
   `faltas` int(11) DEFAULT NULL,
@@ -145,7 +145,7 @@ ALTER TABLE `aluno`
   ADD KEY `cpf` (`cpf`);
 
 --
--- Indexes for table `aluno_por_disciplina`
+-- Indexes for table `aluno_por_turma`
 --
 ALTER TABLE `aluno_por_turma`
   ADD KEY `codigo_aluno` (`codigo_aluno`),

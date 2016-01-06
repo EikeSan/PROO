@@ -32,7 +32,7 @@ public class UsuarioBO {
     public void vincularProfessorTurma(int codigo_disciplina,int codigo_professor){
         usuarioDAO = new UsuarioDAO();
         int codigo_turma = usuarioDAO.retornarUltimoCodigoTurma();
-        usuarioDAO.vincularProfessorTurma(codigo_disciplina, codigo_professor, codigo_turma);
+        usuarioDAO.vincularProfessorPorTurma(codigo_disciplina, codigo_professor, codigo_turma);
     }
     
     public void inserirNovaTurma(String nomeTurma){
