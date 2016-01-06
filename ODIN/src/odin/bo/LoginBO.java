@@ -36,7 +36,7 @@ public class LoginBO {
         usuarioDAO = new UsuarioDAO();
         try {
             if (login.isDadosValidos(nomeUsuario, senhaUsuario) == true) {
-                retornaTelaPeloTipoDeUsuario(usuarioDAO.consultarTipoUsuario(nomeUsuario));
+                retornaTelaPeloTipoDeUsuario(nomeUsuario,usuarioDAO.consultarTipoUsuario(nomeUsuario));
             }
             return "";
         } catch (Exception e) {
@@ -44,7 +44,8 @@ public class LoginBO {
         }
     }
 
-    public void retornaTelaPeloTipoDeUsuario(String tipoUsuario) {
+    public void retornaTelaPeloTipoDeUsuario(String nomeUsuario,String tipoUsuario) throws SQLException {
+        usuarioDAO = new UsuarioDAO();
         AdminViewGUI adminView = new AdminViewGUI();
         AlunoViewGUI alunoView = new AlunoViewGUI();
         ProfessorViewGUI professorView = new ProfessorViewGUI();
@@ -56,10 +57,12 @@ public class LoginBO {
             }
             case "Aluno": {
                 alunoView.setVisible(true);
+                String cpf = usuarioDAO.consultar(nomeUsuario);
                 break;
             }
             case "Professor": {
                 professorView.setVisible(true);
+                String cpf = usuarioDAO.consultar(nomeUsuario);
                 break;
             }
             default: {

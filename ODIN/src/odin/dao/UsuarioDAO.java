@@ -68,7 +68,7 @@ public class UsuarioDAO {
         ResultSet rs;
         Statement stmt;
         try {
-            PreparedStatement pstm = conexaoMySQL().prepareStatement("select usuario from usuario where usuario ='" + usuarioConsultado + "'");
+            PreparedStatement pstm = conexaoMySQL().prepareStatement("select cpf from usuario where usuario ='" + usuarioConsultado + "'");
             rs = pstm.executeQuery();
             boolean next = rs.next();
             String usuarioEncontrado = rs.getString(1);
