@@ -20,17 +20,28 @@ public class LoginBO {
     Connection conexao = null;
     UsuarioDAO usuarioDAO;
 
-    public void validarLogin(String nomeUsuario, String senhaUsuario) throws SQLException {
+    public String validarLogin(String nomeUsuario, String senhaUsuario) throws SQLException {
         LoginDAO login = new LoginDAO();
-        conexao = banco.getConexao("jdbc:mysql", "localhost", "odin", "root", "");
-        usuarioDAO = new UsuarioDAO();
-        MensagemGUI telaMensagem = new MensagemGUI();
-        if (login.isDadosValidos(nomeUsuario, senhaUsuario) == true) {
-            telaMensagem.textExibido("Login realizado com sucesso!");
-            telaMensagem.setVisible(true);
-            retornaTelaPeloTipoDeUsuario(usuarioDAO.consultarTipoUsuario(nomeUsuario));
+
+        if (nomeUsuario.isEmpty() || senhaUsuario.isEmpty()) {
+            return "Usuário e/ou senha não informados";
+        } else if (nomeUsuario == null || senhaUsuario == null) {
+            return "Usuario e/ou senha não informados!";
+        } else if (nomeUsuario == "" || senhaUsuario == "") {
+            return "Usuario e/ou senha não informados!";
+        } else if (nomeUsuario.length() < 5 || nomeUsuario.length() > 12) {
+            return "O nome do usuário deve conter mais que 6 e menos 12 caracteres";
         }
 
+        usuarioDAO = new UsuarioDAO();
+        try {
+            if (login.isDadosValidos(nomeUsuario, senhaUsuario) == true) {
+                retornaTelaPeloTipoDeUsuario(usuarioDAO.consultarTipoUsuario(nomeUsuario));
+            }
+            return "";
+        } catch (Exception e) {
+            return "Erro ao realizar Login";
+        }
     }
 
     public void retornaTelaPeloTipoDeUsuario(String tipoUsuario) {
